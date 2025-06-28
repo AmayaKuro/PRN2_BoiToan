@@ -4,9 +4,15 @@ namespace Boitoan.DAL.Entities;
 
 public class Test : Base
 {
-    public string Method { get; set; }
+    public TestMethod Method { get; set; }
     public string Author { get; set; }
     public DateTime TestDate { get; set; }
     public int NumberOfQuestions { get; set; }
-    List<Question> Questions { get; set; }
+    public List<Question> Questions { get; set; } // why putting this private at fist?
+}
+
+public enum TestMethod
+{
+    MBTI = 12,
+    DISC = 13
 }
