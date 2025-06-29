@@ -1,6 +1,6 @@
 using Boitoan.DAL.Entities;
 
-namespace Boitoan.Utils;
+namespace Boitoan.DAL.Utils;
 public class DataGenerator
 {
 

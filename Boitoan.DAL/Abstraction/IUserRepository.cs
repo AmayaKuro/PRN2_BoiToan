@@ -1,7 +1,6 @@
-﻿using Boitoan.DAL.Abstraction;
-using Boitoan.DAL.Entities;
+﻿using Boitoan.DAL.Entities;
 
-namespace Boitoan.DAL.Repositories.Abstraction
+namespace Boitoan.DAL.Abstraction
 {
     public interface IUserRepository: IRepository<User>
     {
