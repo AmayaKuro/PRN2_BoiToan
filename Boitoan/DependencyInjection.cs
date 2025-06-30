@@ -29,7 +29,6 @@ public static class DependencyInjection
     {
         services.AddScoped<IRepository<User>, Repository<User>>();
         services.AddScoped<UserRepository>();
-        services.AddScoped<IRepository<Answer>, Repository<Answer>>();
         services.AddScoped<IRepository<Test>, Repository<Test>>();
         services.AddScoped<IRepository<School>, Repository<School>>();
     }

@@ -2,11 +2,12 @@
 using MongoDB.Driver;
 using System.Linq.Expressions;
 using Boitoan.DAL.Abstraction;
+using Boitoan.DAL.Entities;
 
 namespace Boitoan.DAL.Repositories
 {
 
-    public class Repository<T> : IRepository<T> where T : class
+    public class Repository<T> : IRepository<T> where T : Base
     {
         private readonly IMongoCollection<T> _collection;
 
@@ -14,7 +15,7 @@ namespace Boitoan.DAL.Repositories
 
         public async Task<T?> GetByIdAsync(string id)
         {
-            var filter = Builders<T>.Filter.Eq("_id", id);
+            var filter = Builders<T>.Filter.Eq(x => x.Id, id);
             return await _collection.Find(filter).FirstOrDefaultAsync();
         }
 
@@ -35,13 +36,13 @@ namespace Boitoan.DAL.Repositories
 
         public async Task UpdateAsync(string id, T entity)
         {
-            var filter = Builders<T>.Filter.Eq("_id", id);
+            var filter = Builders<T>.Filter.Eq(x => x.Id, id);
             await _collection.ReplaceOneAsync(filter, entity);
         }
 
         public async Task DeleteAsync(string id)
         {
-            var filter = Builders<T>.Filter.Eq("_id", id);
+            var filter = Builders<T>.Filter.Eq(x => x.Id, id);
             await _collection.DeleteOneAsync(filter);
         }
 
