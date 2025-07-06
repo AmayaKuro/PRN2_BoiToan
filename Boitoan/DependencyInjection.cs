@@ -1,4 +1,5 @@
-﻿using Boitoan.DAL.Abstraction;
+﻿using Boitoan.BLL;
+using Boitoan.DAL.Abstraction;
 using Boitoan.DAL.Entities;
 using Boitoan.DAL.Models.Config;
 using Boitoan.DAL.Repositories;
@@ -12,7 +13,7 @@ public static class DependencyInjection
         // Bind MongoDbConfig from appsettings
         services.RegisterMongoDbContext(configuration);
         services.RegisterRepositories();
-        services.RegisterAuthentication();
+        services.RegisterService();
     }
 
     private static void RegisterMongoDbContext(this IServiceCollection services, IConfiguration configuration)
@@ -33,10 +34,12 @@ public static class DependencyInjection
         services.AddScoped<IRepository<School>, Repository<School>>();
     }
 
-    private static void RegisterAuthentication(this IServiceCollection services)
+    private static void RegisterService(this IServiceCollection services)
     {
+        services.AddScoped<TestService>();
         services.AddScoped<Authen>();
         services.AddScoped<TestService>();
         services.AddScoped<SchoolService>();
+        services.AddScoped<UserService>();
     }
 }
