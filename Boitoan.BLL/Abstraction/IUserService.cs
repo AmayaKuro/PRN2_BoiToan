@@ -7,4 +7,5 @@ public interface IUserService
     public Task<IEnumerable<User>> GetAllUsersAsync();
     public Task AddUserAsync(User user);
     public Task UpdateUserAsync(User user);
+    Task<long> GetTotalUsers();
 }

@@ -42,5 +42,9 @@ namespace Boitoan.BLL
             await _userRepository.SaveChangesAsync();
         }
 
+        public async Task<long> GetTotalUsers()
+        {
+            return await _userRepository.Count();
+        }
     }
 }

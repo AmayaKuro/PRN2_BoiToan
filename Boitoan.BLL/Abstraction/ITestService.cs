@@ -16,7 +16,7 @@ namespace SPTS_Writer.Services.Abstraction
 
 
         public  Task DeleteTestAsync(string id);
-        
-
+        Task<long> GetTotalTests();
+        Task<long> GetTotalTestHistory();
     }
 }

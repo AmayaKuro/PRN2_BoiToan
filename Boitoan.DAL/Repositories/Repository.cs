@@ -29,6 +29,12 @@ namespace Boitoan.DAL.Repositories
             return await _collection.Find(predicate).FirstOrDefaultAsync();
         }
 
+        public async Task<long> Count()
+        {
+            var count = await _collection.CountDocumentsAsync(Builders<T>.Filter.Empty);
+            return count;
+        }
+
         public async Task AddAsync(T entity)
         {
             await _collection.InsertOneAsync(entity);

@@ -7,14 +7,19 @@ namespace SPTS_Writer.Services
     public class TestService : ITestService
     {
         private readonly IRepository<Test> _testRepository;
-        public TestService(IRepository<Test> testRepository)
+        private readonly IRepository<History> _testHistoryRepository;
+
+        public TestService(IRepository<Test> testRepository, IRepository<History> testHistoryRepository)
         {
             _testRepository = testRepository;
+            _testHistoryRepository = testHistoryRepository;
         }
+
         public async Task<Test?> GetTestByIdAsync(string id)
         {
             return await _testRepository.GetByIdAsync(id);
         }
+
         public async Task<IEnumerable<Test>> GetAllTestsAsync()
         {
             return await _testRepository.GetAllAsync();
@@ -31,10 +36,21 @@ namespace SPTS_Writer.Services
             await _testRepository.UpdateAsync(test.Id.ToString(), test);
             await _testRepository.SaveChangesAsync();
         }
+
         public async Task DeleteTestAsync(string id)
         {
             await _testRepository.DeleteAsync(id);
             await _testRepository.SaveChangesAsync();
+        }
+
+        public async Task<long> GetTotalTests()
+        {
+            return await _testRepository.Count();
+        }
+
+        public async Task<long> GetTotalTestHistory()
+        {
+            return await _testHistoryRepository.Count();
         }
     }
 }
