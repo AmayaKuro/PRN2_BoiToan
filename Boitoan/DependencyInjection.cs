@@ -37,7 +37,6 @@ public static class DependencyInjection
         services.AddScoped<UserRepository>();
         services.AddScoped<IRepository<Test>, Repository<Test>>();
         services.AddScoped<IRepository<History>, Repository<History>>();
-        //services.AddScoped<IRepository<School>, Repository<School>>();
     }
 
     private static void RegisterService(this IServiceCollection services)
@@ -45,7 +44,6 @@ public static class DependencyInjection
         services.AddScoped<TestService>();
         services.AddScoped<Authen>();
         services.AddScoped<TestService>();
-        services.AddScoped<SchoolService>();
         services.AddScoped<UserService>();
     }
 }
