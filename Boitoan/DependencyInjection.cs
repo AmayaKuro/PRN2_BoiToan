@@ -22,7 +22,12 @@ public static class DependencyInjection
         services.AddScoped<MongoDbContext>(sp =>
         {
             var config = sp.GetRequiredService<IOptions<MongoDbConfig>>().Value;
-            return new MongoDbContext(config.ConnectionString, config.DatabaseName);
+            var context = new MongoDbContext(config.ConnectionString, config.DatabaseName);
+
+            // Seed data per app start
+            context.SeedData();
+
+            return context;
         });
     }
 
@@ -31,7 +36,8 @@ public static class DependencyInjection
         services.AddScoped<IRepository<User>, Repository<User>>();
         services.AddScoped<UserRepository>();
         services.AddScoped<IRepository<Test>, Repository<Test>>();
-        services.AddScoped<IRepository<School>, Repository<School>>();
+        services.AddScoped<IRepository<History>, Repository<History>>();
+        //services.AddScoped<IRepository<School>, Repository<School>>();
     }
 
     private static void RegisterService(this IServiceCollection services)

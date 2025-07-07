@@ -1,0 +1,39 @@
+@page
+@model Boitoan.Pages.Admin.IndexModel
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<h2>Admin Dashboard</h2>
+<div class="row">
+    <div class="col-md-4">
+        <div class="card text-white bg-primary mb-3">
+            <div class="card-header">Total Users</div>
+            <div class="card-body">
+                <h3 class="card-title">@Model.TotalUsers</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-white bg-success mb-3">
+            <div class="card-header">Total Tests</div>
+            <div class="card-body">
+                <h3 class="card-title">@Model.TotalTests</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-white bg-info mb-3">
+            <div class="card-header">Tests Taken</div>
+            <div class="card-body">
+                <h3 class="card-title">@Model.TotalHistories</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h3>Correspondence Service</h3>
+<p>
+    <!-- Placeholder for correspondence service UI (e.g., admin messages, support, etc.) -->
+    <a class="btn btn-outline-secondary" asp-page="/Admin/Correspondence">Go to Correspondence Service</a>
+</p>
