@@ -22,13 +22,13 @@ public static class DependencyInjection
         services.AddScoped<MongoDbContext>(sp =>
         {
             var config = sp.GetRequiredService<IOptions<MongoDbConfig>>().Value;
-            var context = new MongoDbContext(config.ConnectionString, config.DatabaseName);
-
-            // Seed data per app start
-            context.SeedData();
-
-            return context;
+            return new MongoDbContext(config.ConnectionString, config.DatabaseName);
         });
+
+        // Run once per startup
+        var serviceProvider = services.BuildServiceProvider();
+        var mongoContext = serviceProvider.GetRequiredService<MongoDbContext>();
+        mongoContext.SeedData();
     }
 
     private static void RegisterRepositories(this IServiceCollection services)
