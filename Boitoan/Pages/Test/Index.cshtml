@@ -1,0 +1,407 @@
+﻿@page
+@model SPTS_Writer.Pages.Test.IndexModel
+
+@{
+var questions = Model.CurrentPageQuestions;
+var currentPage = Model.CurrentPage;
+var totalPages = Model.TotalPages;
+var selectedAnswers = Model.AnswerMap;
+var allQuestions = Model.ViewModel.Test.Questions;
+int questionsPerPage = 5;
+}
+
+<style>
+    .test-container {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        padding: 2rem 0;
+    }
+
+    .test-card {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border: none;
+        border-radius: 20px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+    }
+
+    .test-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+    }
+
+    .question-card {
+        background: #ffffff;
+        border-radius: 15px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        border: 1px solid rgba(102, 126, 234, 0.2);
+        transition: all 0.3s ease;
+    }
+
+    .question-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(102, 126, 234, 0.15);
+    }
+
+    .question-title {
+        color: #4a5568;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+        font-size: 1.1rem;
+    }
+
+    .option-container {
+        background: #f8fafc;
+        border-radius: 10px;
+        padding: 1rem;
+        margin-bottom: 0.8rem;
+        border: 2px solid transparent;
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+
+    .option-container:hover {
+        background: #e2e8f0;
+        border-color: #667eea;
+    }
+
+    .option-container.selected {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-color: #667eea;
+        color: white;
+    }
+
+    .option-container.selected .form-check-label {
+        color: white;
+        font-weight: 500;
+    }
+
+    .form-check-input {
+        display: none;
+    }
+
+    .btn-custom {
+        padding: 0.8rem 2rem;
+        border-radius: 50px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        transition: all 0.3s ease;
+        border: none;
+    }
+
+    .btn-primary-custom {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+    }
+
+    .btn-primary-custom:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+    }
+
+    .btn-secondary-custom {
+        background: #e2e8f0;
+        color: #4a5568;
+    }
+
+    .btn-secondary-custom:hover {
+        background: #cbd5e0;
+        transform: translateY(-2px);
+    }
+
+    .navigator-card {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        border: none;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 2rem;
+    }
+
+    .question-nav-btn {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        margin: 0.25rem;
+    }
+
+    .question-nav-btn:hover {
+        transform: scale(1.1);
+        text-decoration: none;
+    }
+
+    .question-nav-btn.answered {
+        background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+        color: white;
+        border-color: #48bb78;
+    }
+
+    .question-nav-btn.unanswered {
+        background: #e2e8f0;
+        color: #4a5568;
+        border-color: #cbd5e0;
+    }
+
+    .question-nav-btn.current-page {
+        border-color: #667eea !important;
+        border-width: 3px !important;
+        animation: pulse 2s infinite;
+    }
+
+    @@keyframes pulse {
+        0% { box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.4); }
+        70% { box-shadow: 0 0 0 10px rgba(102, 126, 234, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(102, 126, 234, 0); }
+    }
+
+    .progress-bar-custom {
+        height: 8px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 10px;
+        transition: width 0.5s ease;
+    }
+
+    .progress-bg {
+        background: #e2e8f0;
+        height: 8px;
+        border-radius: 10px;
+        overflow: hidden;
+        margin-bottom: 2rem;
+    }
+
+    .test-header {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        color: white;
+        text-align: center;
+    }
+
+    .test-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .test-info {
+        opacity: 0.9;
+        font-size: 1.1rem;
+    }
+</style>
+
+<div class="test-container">
+    <div class="container">
+        <!-- Test Header -->
+        <div class="test-header">
+            <h1 class="test-title">@Model.ViewModel.Test.Method</h1>
+            <p class="test-info">
+                <strong>Author:</strong> @Model.ViewModel.Test.Author |
+                <strong>Date:</strong> @Model.ViewModel.Test.TestDate.ToShortDateString()
+            </p>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="progress-bg">
+            <div class="progress-bar-custom" style="width: @(((double)currentPage / totalPages) * 100)%"></div>
+        </div>
+
+        <div class="row">
+            <!-- Main Test Content -->
+            <div class="col-lg-8">
+                <div class="test-card">
+                    <div class="card-body p-4">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h4 class="mb-0">Page @currentPage of @totalPages</h4>
+                            <span class="badge bg-primary" style="font-size: 0.9rem;" id="answerBadge">
+                                <span id="answeredCount">@selectedAnswers.Where(x => allQuestions.Any(q => q.Id == x.Key)).Count()</span> / @allQuestions.Count Answered
+                            </span>
+                        </div>
+
+                        <form method="post" id="testForm">
+                            <input type="hidden" name="currentPage" value="@currentPage" />
+                            <input type="hidden" name="id" value="@Model.ViewModel.Test.Id" />
+
+                            @for (int i = 0; i < questions.Count; i++)
+                            {
+                            var question = questions[i];
+                            <div class="question-card">
+                                <h5 class="question-title">
+                                    Question @((currentPage - 1) * questionsPerPage + i + 1): @question.Detail
+                                </h5>
+                                <fieldset>
+                                    @foreach (var option in question.Options)
+                                    {
+                                    var optionValueStr = option.Value.ToString();
+                                    var isChecked = selectedAnswers.TryGetValue(question.Id, out var val) && val == optionValueStr;
+                                    <div class="option-container @(isChecked ? "selected" : "")" onclick="selectOption(this, @question.Id, '@optionValueStr')">
+                                        <div class="form-check">
+                                            <input class="form-check-input"
+                                                   type="radio"
+                                                   name="question_@question.Id"
+                                                   value="@optionValueStr"
+                                                   id="option_@(optionValueStr)_@question.Id"
+                                                   @(isChecked ? "checked" : "") required />
+                                            <label class="form-check-label w-100" for="option_@(optionValueStr)_@question.Id">
+                                                @option.Detail
+                                            </label>
+                                        </div>
+                                    </div>
+                                    }
+                                </fieldset>
+                            </div>
+                            }
+
+                            <div class="d-flex justify-content-between align-items-center mt-4">
+                                @if (currentPage > 1)
+                                {
+                                <a class="btn btn-secondary-custom btn-custom" asp-page="/Test/Index" asp-route-id="@Model.ViewModel.Test.Id" asp-route-currentPage="@(currentPage - 1)">
+                                    ← Previous
+                                </a>
+                                }
+                                else
+                                {
+                                <div></div>
+                                }
+                                <button type="submit" class="btn btn-primary-custom btn-custom">
+                                    @(currentPage == totalPages ? "🏁 Finish Test" : "Next →")
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Enhanced Question Navigator -->
+            <div class="col-lg-4">
+                <div class="navigator-card">
+                    <div class="card-body p-4">
+                        <h5 class="mb-3 text-center" style="color: #4a5568; font-weight: 600;">Question Navigator</h5>
+                        <div class="d-flex flex-wrap justify-content-center gap-1">
+                            @for (int i = 0; i < allQuestions.Count; i++)
+                            {
+                            var q = allQuestions[i];
+                            int page = (i / questionsPerPage) + 1;
+                            bool answered = selectedAnswers.ContainsKey(q.Id);
+                            bool isCurrentPage = page == currentPage;
+                            bool isCurrentQuestion = isCurrentPage && i >= (currentPage - 1) * questionsPerPage && i < currentPage * questionsPerPage;
+
+                            var btnClass = "question-nav-btn ";
+                            btnClass += answered ? "answered" : "unanswered";
+                            if (isCurrentQuestion)
+                            {
+                            btnClass += " current-page";
+                            }
+
+                            <a class="@btnClass" asp-page="/Test/Index" asp-route-id="@Model.ViewModel.Test.Id" asp-route-currentPage="@(page)" title="Question @(i + 1) - @(answered ? "Answered" : "Not answered")">
+                                @(i + 1)
+                            </a>
+                            }
+                        </div>
+
+                        <!-- Legend -->
+                        <div class="mt-4 pt-3 border-top">
+                            <div class="d-flex justify-content-between text-sm">
+                                <div class="d-flex align-items-center">
+                                    <div class="question-nav-btn answered me-2" style="width: 20px; height: 20px; font-size: 0.7rem;"></div>
+                                    <span style="font-size: 0.85rem; color: #4a5568;">Answered</span>
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <div class="question-nav-btn unanswered me-2" style="width: 20px; height: 20px; font-size: 0.7rem;"></div>
+                                    <span style="font-size: 0.85rem; color: #4a5568;">Not answered</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function selectOption(element, questionId, optionValue) {
+        // Remove selected class from all options in this question
+        const questionContainer = element.closest('.question-card');
+        const allOptions = questionContainer.querySelectorAll('.option-container');
+        allOptions.forEach(option => option.classList.remove('selected'));
+
+        // Add selected class to clicked option
+        element.classList.add('selected');
+
+        // Check the radio button
+        const radioButton = element.querySelector('input[type="radio"]');
+        radioButton.checked = true;
+
+        // Update the question navigator button to show as answered
+        updateNavigatorButton(questionId);
+    }
+
+    function updateNavigatorButton(questionId) {
+        // Count total answered questions for this test only
+        const currentTestQuestionIds = [@string.Join(",", allQuestions.Select(q => q.Id))];
+
+        // Count answered questions from server data that belong to this test
+        let serverAnsweredCount = 0;
+        @foreach(var answer in selectedAnswers)
+        {
+        @if(allQuestions.Any(q => q.Id == answer.Key))
+        {
+        <text>serverAnsweredCount++;</text>
+        }
+        }
+
+        // Count currently selected options on this page
+        const currentPageSelected = document.querySelectorAll('.option-container.selected').length;
+
+        // Count how many questions on current page were already answered from server
+        let alreadyAnsweredOnCurrentPage = 0;
+        @foreach(var q in questions)
+        {
+        @if(selectedAnswers.ContainsKey(q.Id))
+        {
+        <text>alreadyAnsweredOnCurrentPage++;</text>
+        }
+        }
+
+        // Calculate total: server answers for this test (minus current page) + current page selections
+        const totalAnswered = (serverAnsweredCount - alreadyAnsweredOnCurrentPage) + currentPageSelected;
+        const totalQuestions = @allQuestions.Count;
+
+        const badge = document.getElementById('answeredCount');
+        if (badge) {
+            badge.textContent = totalAnswered;
+        }
+    }
+
+    // Add smooth scrolling for navigation
+    document.querySelectorAll('.question-nav-btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            // Add a small delay to show the click effect
+            setTimeout(() => {
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = 'scale(1.1)';
+                }, 100);
+            }, 50);
+        });
+    });
+
+    // Auto-save functionality (optional)
+    document.getElementById('testForm').addEventListener('change', function() {
+        // You can implement auto-save here if needed
+        console.log('Answer changed - could auto-save here');
+    });
+</script>
