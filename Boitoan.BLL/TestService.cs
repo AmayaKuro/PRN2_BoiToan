@@ -7,12 +7,10 @@ namespace SPTS_Writer.Services
     public class TestService : ITestService
     {
         private readonly IRepository<Test> _testRepository;
-        private readonly IRepository<History> _testHistoryRepository;
 
-        public TestService(IRepository<Test> testRepository, IRepository<History> testHistoryRepository)
+        public TestService(IRepository<Test> testRepository)
         {
             _testRepository = testRepository;
-            _testHistoryRepository = testHistoryRepository;
         }
 
         public async Task<Test?> GetTestByIdAsync(string id)
@@ -46,11 +44,6 @@ namespace SPTS_Writer.Services
         public async Task<long> GetTotalTests()
         {
             return await _testRepository.Count();
-        }
-
-        public async Task<long> GetTotalTestHistory()
-        {
-            return await _testHistoryRepository.Count();
         }
     }
 }

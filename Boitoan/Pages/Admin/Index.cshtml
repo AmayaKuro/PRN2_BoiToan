@@ -32,8 +32,80 @@
     </div>
 </div>
 
-<h3>Correspondence Service</h3>
-<p>
-    <!-- Placeholder for correspondence service UI (e.g., admin messages, support, etc.) -->
-    <a class="btn btn-outline-secondary" asp-page="/Admin/Correspondence">Go to Correspondence Service</a>
-</p>
+<section>
+    <h2>Test Taken History</h2>
+    <table class="table" id="history-table">
+        <thead>
+            <tr>
+                <th>Test Name</th>
+                <th>User Name</th>
+                <th>Result</th>
+                <th>Distinct Answers</th>
+            </tr>
+        </thead>
+        <tbody id="history-body">
+        </tbody>
+    </table>
+    <div id="loading" style="display:none;">Loading...</div>
+</section>
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.0/signalr.min.js"></script>
+    <script>
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/testMonitorHub")
+            .build();
+
+        connection.on("ReceiveQuestionSelection", function (userId, questionId) {
+            // Highlight the selected question
+            document.querySelectorAll("#question-list li").forEach(li => li.style.background = "");
+            const selected = document.getElementById("question-" + questionId);
+            if (selected) {
+                selected.style.background = "#ffeeba";
+                document.getElementById("current-selection").innerText = `User ${userId} selected question ${questionId}`;
+            }
+        });
+
+        connection.start().catch(err => console.error(err.toString()));
+
+        let skip = 0;
+        const take = 5;
+        let loading = false;
+        let allLoaded = false;
+
+        async function loadMore() {
+            if (loading || allLoaded) return;
+            loading = true;
+            document.getElementById('loading').style.display = 'block';
+            const res = await fetch(`/admin?handler=Stats&skip=${skip}&take=${take}`);
+            const data = await res.json();
+            if (data.length < take) allLoaded = true;
+            skip += data.length;
+            const tbody = document.getElementById('history-body');
+            data.forEach(item => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `<td>${item.testName}</td>
+                                <td>${item.userName}</td>
+                                <td>${item.result}</td>
+                                <td>${
+                                    item.answerCounts
+                                        ? Object.entries(item.answerCounts).map(([k, v]) => `${k}: ${v}`).join(', ')
+                                        : ''
+                                }</td>`;
+                tbody.appendChild(tr);
+            });
+            document.getElementById('loading').style.display = 'none';
+            loading = false;
+        }
+
+        // Initial load
+        loadMore();
+
+        // Infinite scroll
+        window.addEventListener('scroll', () => {
+            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 100) {
+                loadMore();
+            }
+        });
+    </script>
+}
