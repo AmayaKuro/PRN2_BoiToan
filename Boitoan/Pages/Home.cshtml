@@ -4,6 +4,26 @@
     ViewData["Title"] = "Home";
     Layout = null;
 }
+<style>
+    .main-header-four__social {
+        background-color: #e0e0e0 !important;
+    }
+    .btn-login-custom {
+        background-color: transparent !important;
+        color: #000 !important; /* vàng đậm hơn */
+        border: 2px solid #000 !important;
+        border-radius: 50px !important;
+        font-weight: 600 !important; /* chữ đậm hơn */
+        transition: all 0.3s ease-in-out !important;
+    }
+
+        .btn-login-custom:hover {
+            background-color: #ffc107 !important;
+            border: 2px solid #ffc107 !important;
+            color: #000 !important;
+            transform: scale(1.05) !important;
+        }
+</style>
 <div class="page-wrapper">
     <head>
         <meta charset="UTF-8" />
@@ -88,21 +108,10 @@
                     </div>
                     <div class="main-header-four__right">
                         <div class="main-header-four__social">
-                            <a href="https://facebook.com/">
-                                <i class="fab fa-facebook-f" aria-hidden="true"></i>
-                                <span class="sr-only">Facebook</span>
-                            </a>
-                            <a href="https://twitter.com/">
-                                <i class="fab fa-twitter" aria-hidden="true"></i>
-                                <span class="sr-only">Twitter</span>
-                            </a>
-                            <a href="https://pinterest.com/">
-                                <i class="fab fa-pinterest-p" aria-hidden="true"></i>
-                                <span class="sr-only">Pinterest</span>
-                            </a>
-                            <a href="https://instagram.com/">
-                                <i class="fab fa-instagram" aria-hidden="true"></i>
-                                <span class="sr-only">Instagram</span>
+                            <a href="/Account/LoginRegister"
+                               class="btn btn-primary btn-login-custom"
+                               style="padding: 10px 20px; font-weight: 500 !important;">
+                                Đăng nhập
                             </a>
                         </div>
                     </div>
