@@ -14,9 +14,9 @@ namespace Boitoan.Pages.Home
             _testService = testService;
         }
 
-        public IEnumerable<Test> Tests { get; set; } = new List<Test>();
+		public IEnumerable<Boitoan.DAL.Entities.Test> Tests { get; set; } = new List<Boitoan.DAL.Entities.Test>();
 
-        public async Task OnGetAsync()
+		public async Task OnGetAsync()
         {
             Tests = await _testService.GetAllTestsAsync();
         }
