@@ -1,0 +1,14 @@
+﻿@page
+@model SPTS_Writer.Pages.Test.ListModel
+
+<h2>Available Seeded Tests</h2>
+
+<ul>
+    @foreach (var test in Model.Tests)
+    {
+        <li>
+            <strong>@test.Author</strong> - <code>@test.Id</code> - 
+            <a href="/Test/Index?id=@test.Id">Start Test</a>
+        </li>
+    }
+</ul>

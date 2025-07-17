@@ -5,6 +5,7 @@ using Boitoan.DAL.Models.Config;
 using Boitoan.DAL.Repositories;
 using Microsoft.Extensions.Options;
 using SPTS_Writer.Services;
+using SPTS_Writer.Services.Abstraction;
 
 public static class DependencyInjection
 {
@@ -42,6 +43,7 @@ public static class DependencyInjection
     private static void RegisterService(this IServiceCollection services)
     {
         services.AddScoped<TestService>();
+        services.AddScoped<ITestService, TestService>();
         services.AddScoped<Authen>();
         services.AddScoped<TestService>();
         services.AddScoped<UserService>();
