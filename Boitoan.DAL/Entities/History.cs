@@ -1,11 +1,13 @@
 ﻿using Boitoan.DAL.Entities;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace Boitoan.DAL.Entities;
 
 public class History : Base
 {
-    public Guid UserId { get; set; }
-    public Guid TestId { get; set; }
+    public string UserId { get; set; } // string, not Guid
+    public string TestId { get; set; } // string, not Guid
+
     public string Result { get; set; }
     public TestStatus status { get; set; }
     public List<Answer> Answer { get; set; }

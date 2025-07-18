@@ -47,5 +47,7 @@ public static class DependencyInjection
         services.AddScoped<Authen>();
         services.AddScoped<TestService>();
         services.AddScoped<UserService>();
+        services.AddScoped<TestHistoryService>();
+
     }
 }

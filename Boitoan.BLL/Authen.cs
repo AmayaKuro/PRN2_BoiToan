@@ -27,6 +27,7 @@ namespace SPTS_Writer.Services
             {
                 throw new Exception("Email hoặc Mật khẩu không đúng");
             }
+            new Claim(ClaimTypes.Sid, user.Id ?? string.Empty);
             return user;
         }
 

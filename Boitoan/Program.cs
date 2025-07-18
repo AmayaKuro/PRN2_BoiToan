@@ -11,6 +11,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddDependencyInjection(builder.Configuration);
 
 builder.Services.AddScoped<ITestService, TestService>();
+builder.Services.AddScoped<HistoryRepository>();
 
 builder.Services.AddAuthentication(options =>
 {
