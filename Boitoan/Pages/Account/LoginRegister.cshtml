@@ -1,0 +1,125 @@
+﻿@page
+@model Boitoan.Pages.Account.LoginRegisterModel
+@{
+    ViewData["Title"] = "Đăng nhập";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Đăng nhập || Trắc nghiệm MBTI</title>
+    <link rel="stylesheet" href="~/assets/vendors/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/assets/css/delogis.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<style>
+    .login-page__form-input-box input[type=text] {
+        height: 60px;
+        width: 100%;
+        border: none;
+        background-color: var(--delogis-primary);
+        padding-left: 30px;
+        padding-right: 30px;
+        outline: none;
+        font-size: 13px;
+        color: var(--delogis-gray);
+        border-radius: var(--delogis-bdr-radius);
+        display: block;
+    }
+</style>
+
+<body>
+    <section class="page-header">
+        <div class="page-header-bg" style="background-image: url(~/assets/images/backgrounds/page-header-bg.jpg)">
+        </div>
+        <div class="container">
+            <div class="page-header__inner">
+                <h2>Đăng nhập</h2>
+                <ul class="thm-breadcrumb list-unstyled">
+                    <li><a href="/Home">Trang chủ</a></li>
+                    <li><span>/</span></li>
+                    <li>Đăng nhập</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="login-page py-5">
+        <div class="container">
+
+            @if (!string.IsNullOrEmpty(Model.SuccessMessage))
+            {
+                <div class="alert alert-success text-center">@Model.SuccessMessage</div>
+            }
+
+            @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+            {
+                <div class="alert alert-danger text-center">@Model.ErrorMessage</div>
+            }
+
+            <div class="row">
+                <!-- Đăng nhập -->
+                <div class="col-xl-6 col-lg-6">
+                    <div class="login-page__single">
+                        <h3 class="login-page__title">Đăng nhập</h3>
+                        <form method="post" asp-page-handler="Login" class="login-page__form">
+                            <div class="login-page__form-input-box">
+                                <input type="email" name="LoginData.Email" placeholder="Email *" value="@Model.LoginData?.Email" required />
+                            </div>
+                            <div class="login-page__form-input-box">
+                                <input type="password" name="LoginData.Password" placeholder="Mật khẩu *" required />
+                            </div>
+                            <div class="checked-box">
+                                <input type="checkbox" name="remember" id="remember" checked />
+                                <label for="remember"><span></span>Ghi nhớ đăng nhập</label>
+                            </div>
+                            <div class="login-page__form-btn-box">
+                                <button type="submit" class="thm-btn login-page__form-btn">Đăng nhập</button>
+                                <div class="login-page__form-forgot-password">
+                                    <a href="#">Quên mật khẩu?</a>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="login-page__form-btn-box text-center mt-3">
+                            <a asp-page-handler="LoginGoogle" class="btn btn-outline-dark w-100">
+                                <i class="fab fa-google me-2"></i> Đăng nhập với Google
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Đăng ký -->
+                <div class="col-xl-6 col-lg-6">
+                    <div class="login-page__single">
+                        <h3 class="login-page__title">Đăng ký tài khoản</h3>
+                        <form method="post" asp-page-handler="Register" class="login-page__form">
+                            <div class="login-page__form-input-box">
+                                <input type="email" name="RegisterData.Email" placeholder="Email *" value="@Model.RegisterData?.Email" required />
+                            </div>
+                            <div class="login-page__form-input-box">
+                                <input type="password" name="RegisterData.Password" placeholder="Mật khẩu *" required />
+                            </div>
+                            <div class="login-page__form-input-box">
+                                <input type="text" name="RegisterData.Name" placeholder="Tên đầy đủ *" required />
+                            </div>
+                            <div class="login-page__form-input-box">
+                                <input type="text" name="RegisterData.PhoneNumber" placeholder="Số điện thoại *" required />
+                            </div>
+                            <div class="checked-box">
+                                <input type="checkbox" name="agree" id="agree" checked />
+                                <label for="agree"><span></span>Tôi đồng ý với Chính sách bảo mật</label>
+                            </div>
+                            <div class="login-page__form-btn-box">
+                                <button type="submit" class="thm-btn login-page__form-btn">Đăng ký</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

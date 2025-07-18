@@ -1,8 +1,13 @@
-﻿using MongoDB.Driver;
+﻿using BCrypt.Net;
+using Boitoan.BLL;
+using Boitoan.BLL.Abstraction;
 using Boitoan.DAL.Entities;
 using Boitoan.DAL.Models;
-using BCrypt.Net;
 using Boitoan.DAL.Repositories;
+using Microsoft.AspNetCore.Http;
+using MongoDB.Driver;
+using System.Net.Http;
+using System.Security.Claims;
 
 namespace SPTS_Writer.Services
 {
@@ -20,8 +25,9 @@ namespace SPTS_Writer.Services
             var user = await _userRepository.GetByEmailAsync(loginRequest.Email);
             if (user == null || !BCrypt.Net.BCrypt.Verify(loginRequest.Password, user.Password))
             {
-                throw new Exception("User not exists or password incorrect");
+                throw new Exception("Email hoặc Mật khẩu không đúng");
             }
+            new Claim(ClaimTypes.Sid, user.Id ?? string.Empty);
             return user;
         }
 
@@ -31,7 +37,7 @@ namespace SPTS_Writer.Services
             var user = await _userRepository.GetByEmailAsync(registerRequest.Email);
             if (user != null)
             {
-                throw new Exception("Email already exists");
+                throw new Exception("Email này đã tồn tại");
             }
 
             // Hash the password
@@ -43,12 +49,36 @@ namespace SPTS_Writer.Services
                 Name = registerRequest.Name,
                 Email = registerRequest.Email,
                 PhoneNumber = registerRequest.PhoneNumber,
-                Password = hashedPassword
-            };
+                Password = hashedPassword,
+                Role = "USER"
+			};
 
             await _userRepository.AddAsync(user);
 
             return user;
         }
-    }
+
+		public async Task<User> GetOrCreateGoogleAccountAsync(string email, string name)
+		{
+			var account = await _userRepository.GetByEmailAsync(email);
+
+			if (account != null)
+			{
+				return account; // Trả về nếu đã có
+			}
+
+			account = new User
+			{
+				Email = email,
+				Name = name,
+				Role = "USER",
+				PhoneNumber = string.Empty,
+				Password = string.Empty
+			};
+
+			await _userRepository.AddAsync(account);
+
+			return account;
+		}
+	}
 }

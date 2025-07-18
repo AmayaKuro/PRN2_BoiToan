@@ -1,0 +1,837 @@
+﻿@page
+@model Boitoan.Pages.Home.HomeModel
+@{
+    ViewData["Title"] = "Home";
+    Layout = null;
+}
+<style>
+    .main-header-four__social {
+        background-color: #e0e0e0 !important;
+    }
+    .btn-login-custom {
+        background-color: transparent !important;
+        color: #000 !important; /* vàng đậm hơn */
+        border: 2px solid #000 !important;
+        border-radius: 50px !important;
+        font-weight: 600 !important; /* chữ đậm hơn */
+        transition: all 0.3s ease-in-out !important;
+    }
+
+        .btn-login-custom:hover {
+            background-color: #ffc107 !important;
+            border: 2px solid #ffc107 !important;
+            color: #000 !important;
+            transform: scale(1.05) !important;
+        }
+</style>
+<div class="page-wrapper">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title> Home Four || delogis || delogis HTML 5 Template </title>
+        <link rel="apple-touch-icon" sizes="180x180" href="~/assets/images/favicons/apple-touch-icon.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="~/assets/images/favicons/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="~/assets/images/favicons/favicon-16x16.png" />
+        <link rel="manifest" href="~/assets/images/favicons/site.webmanifest" />
+        <meta name="description" content="delogis HTML 5 Template " />
+
+        <link rel="preconnect" href="https://fonts.googleapis.com/">
+
+        <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+
+        <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100;200;300;400;500;600;700;800;900&amp;display=swap"
+              rel="stylesheet">
+
+        <link href="https://fonts.googleapis.com/css2?family=Castoro:ital@0;1&amp;display=swap" rel="stylesheet">
+
+        <link rel="stylesheet" href="~/assets/vendors/bootstrap/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="~/assets/vendors/animate/animate.min.css" />
+        <link rel="stylesheet" href="~/assets/vendors/animate/custom-animate.css" />
+        <link rel="stylesheet" href="~/assets/vendors/fontawesome/css/all.min.css" />
+        <link rel="stylesheet" href="~/assets/vendors/jarallax/jarallax.css" />
+        <link rel="stylesheet" href="~/assets/vendors/jquery-magnific-popup/jquery.magnific-popup.css" />
+        <link rel="stylesheet" href="~/assets/vendors/nouislider/nouislider.min.css" />
+        <link rel="stylesheet" href="~/assets/vendors/nouislider/nouislider.pips.css" />
+        <link rel="stylesheet" href="~/assets/vendors/odometer/odometer.min.css" />
+        <link rel="stylesheet" href="~/assets/vendors/swiper/swiper.min.css" />
+        <link rel="stylesheet" href="~/assets/vendors/delogis-icons/style.css">
+        <link rel="stylesheet" href="~/assets/vendors/delogis-icons-two/style.css">
+        <link rel="stylesheet" href="~/assets/vendors/tiny-slider/tiny-slider.min.css" />
+        <link rel="stylesheet" href="~/assets/vendors/reey-font/stylesheet.css" />
+        <link rel="stylesheet" href="~/assets/vendors/alagambe-font/stylesheet.css" />
+        <link rel="stylesheet" href="~/assets/vendors/owl-carousel/owl.carousel.min.css" />
+        <link rel="stylesheet" href="~/assets/vendors/owl-carousel/owl.theme.default.min.css" />
+        <link rel="stylesheet" href="~/assets/vendors/bxslider/jquery.bxslider.css" />
+        <link rel="stylesheet" href="~/assets/vendors/bootstrap-select/css/bootstrap-select.min.css" />
+        <link rel="stylesheet" href="~/assets/vendors/vegas/vegas.min.css" />
+        <link rel="stylesheet" href="~/assets/vendors/jquery-ui/jquery-ui.css" />
+        <link rel="stylesheet" href="~/assets/vendors/timepicker/timePicker.css" />
+
+        <!-- template styles -->
+        <link rel="stylesheet" href="~/assets/css/delogis.css" />
+        <link rel="stylesheet" href="~/assets/css/delogis-color-1.css" />
+    </head>
+
+
+    <body class="custom-cursor">
+        <div class="custom-cursor__cursor"></div>
+        <div class="custom-cursor__cursor-two"></div>
+        <div class="preloader">
+            <div class="preloader__image"></div>
+        </div>
+
+        <div class="page-wrapper">
+            <header class="main-header-four">
+                <nav class="main-menu">
+                    <div class="container">
+                        <div class="main-menu__wrapper clearfix">
+                            <div class="main-header-four__logo">
+                                <a href="index.html"><img src="~/assets/images/resources/logo-3.png" alt="delogis" width="140"></a>
+                            </div>
+                            <div class="main-menu__main-menu-box">
+                                <ul class="main-menu__list one-page-scroll-menu">
+                                    <li class="dropdown current megamenu scrollToLink">
+                                        <a href="#home">Trang chủ</a>
+                                    </li>
+                                    <li class="scrollToLink">
+                                        <a href="#about">Về chúng tôi</a>
+                                    </li>
+                                    <li class="scrollToLink">
+                                        <a href="#services">Dịch vụ</a>
+                                    </li>
+                                    <li class="scrollToLink">
+                                        <a href="#blog">Blog</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="main-header-four__right">
+                        <div class="main-header-four__social">
+                            <a href="/Account/LoginRegister"
+                               class="btn btn-primary btn-login-custom"
+                               style="padding: 10px 20px; font-weight: 500 !important;">
+                                Đăng nhập
+                            </a>
+                        </div>
+                    </div>
+                </nav>
+            </header>
+
+            <div class="stricky-header stricked-menu main-menu main-header-four">
+                <div class="sticky-header__content"></div>
+            </div>
+    
+            <section class="main-slider-four" id="home">
+                <div class="main-slider-four__carousel owl-carousel owl-theme thm-owl__carousel"
+                     data-owl-options='{
+                     "loop" : true,
+                     "items" : 1,
+                     "navText" : ["<span class=\"delogis-icons-two-left-arrow\"></span>","<span class=\"delogis-icons-two-right-arrow\"></span>"],
+                    "margin": 0,
+                    "dots": false,
+                    "nav": true,
+                    "animateOut": "fadeOut",
+                    "animateIn": "fadeIn",
+                    "active": true,
+                    "smartSpeed": 1000,
+                    "autoplay": true,
+                    "autoplayTimeout": 7000,
+                    "autoplayHoverPause": false
+                }'>
+                <div class="item">
+                    <div class="main-slider-four__item">
+                        <div class="main-slider-four__bg" style="background-image: url('@Url.Content("~/assets/images/backgrounds/slider-4-1.jpg")');">
+                            <div class="main-slider-four__bg__color"></div>
+                            <div class="main-slider-four__bg__color"></div>
+                            <div class="main-slider-four__bg__color"></div>
+                            <div class="main-slider-four__bg__color"></div>
+                            <div class="main-slider-four__bg__color"></div>
+                            <div class="main-slider-four__bg__color"></div>
+                        </div>
+                        <div class="main-slider-four__overlay"></div>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12 text-center">
+                                    <div class="main-slider-four__content">
+                                        <h2 class="main-slider-four__title">Khám Phá Sức Khỏe<br>Tâm Lý Của Bạn</h2>
+                                        <p class="main-slider-four__text">
+                                            Chỉ với vài phút, bạn có thể hiểu rõ hơn về trạng thái tâm lý của mình.<br> Hoàn toàn miễn phí và bảo mật tuyệt đối.
+                                        </p>
+                                        <div class="main-slider-four__btn">
+                                            <a asp-page="/Home/Test" class="thm-btn thm-btn--two">Bắt Đầu Bài Test</a>
+                                            <a href="https://www.youtube.com/watch?v=Get7rqXYrbQ" class="video-popup">
+                                                <span class="delogis-icons-two-play"></span>
+                                                <i class="ripple"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- item -->
+                <div class="item">
+                    <div class="main-slider-four__item">
+                        <div class="main-slider-four__bg" style="background-image: url('@Url.Content("~/assets/images/backgrounds/slider-4-2.jpg")');">
+                            <div class="main-slider-four__bg__color"></div>
+                            <div class="main-slider-four__bg__color"></div>
+                            <div class="main-slider-four__bg__color"></div>
+                            <div class="main-slider-four__bg__color"></div>
+                            <div class="main-slider-four__bg__color"></div>
+                            <div class="main-slider-four__bg__color"></div>
+                        </div>
+                        <div class="main-slider-four__overlay"></div>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12 text-center">
+                                   <div class="main-slider-four__content">
+                                        <h2 class="main-slider-four__title">Đánh Giá Mức Độ<br>Stress Hiện Tại</h2>
+                                        <p class="main-slider-four__text">
+                                          Bài test khoa học giúp bạn nhận diện stress, lo âu và trầm cảm.<br> Bảo mật – Miễn phí – Nhanh chóng.</p>
+                                          <div class="main-slider-four__btn">
+                                              <a  asp-page="/Home/Test" class="thm-btn thm-btn--two">Thực Hiện Ngay</a>
+                                          </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- item -->
+            </div>
+            </section>
+            <!--Main Sllider Four Start -->
+            <!--About Four Start-->
+            <section class="about-five" id="about">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="about-five__content">
+                                <div class="section-title section-title--home-four text-left">
+                                    <span class="section-title__tagline"><span class="section-title__tagline__icon"><i class="delogis-icons-two-brain"></i></span>Về chúng tôi</span>
+                                    <h2 class="section-title__title">
+                                        Khám Phá Sức Khỏe <br> Tinh Thần Của Bạn
+                                    </h2>
+                                </div>
+                                <p class="about-five__content__text">
+                                    Chỉ với vài phút, bạn có thể đánh giá mức độ căng thẳng, lo âu và sức khỏe tâm lý tổng quan của bản thân.
+                                    Bài test hoàn toàn miễn phí và bảo mật tuyệt đối, giúp bạn hiểu rõ hơn để chăm sóc tinh thần tốt hơn mỗi ngày.
+
+
+                                </p>
+                                <ul class="about-five__box list-unstyled">
+                                    <li>
+                                        <div class="about-five__box__top">
+                                            <div class="about-five__box__icon"><span class="delogis-icons-two-high-five"></span></div>
+                                            <h3 class="about-five__box__title">Relationship<br>Kiểm Tra Stress</h3>
+                                        </div>
+                                        <p class="about-five__box__text">
+                                            Đo lường mức độ căng thẳng hiện tại và nhận gợi ý cải thiện.
+                                            </p>
+                                    </li>
+                                    <li>
+                                        <div class="about-five__box__top">
+                                            <div class="about-five__box__icon"><span class="delogis-icons-two-stress-relief"></span></div>
+                                            <h3 class="about-five__box__title">Stress<br>Đánh Giá Lo Âu</h3>
+                                        </div>
+                                        <p class="about-five__box__text">
+                                            Khám phá các dấu hiệu lo âu và cách quản lý hiệu quả.
+                                            </p>
+                                    </li>
+                                </ul>
+                                <div class="about-five__progress">
+                                    <h4 class="about-five__progress__title">Độ Tin Cậy</h4>
+                                    <div class="bar">
+                                        <div class="bar-inner count-bar" data-percent="90%">
+                                            <div class="count-text">90%</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                @* <a href="about.html" class="thm-btn thm-btn--two">Learn More</a> *@
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="about-five__image wow fadeInUp" data-wow-delay="00ms">
+                                <img src="~/assets/images/resources/about-5-1.jpg" alt="delogis">
+                                <div class="about-five__image__star">
+                                    <img src="~/assets/images/shapes/about-4-star.png" alt="delogis">
+                                </div>
+                                <div class="about-five__image__shape-one">
+                                    <img src="~/assets/images/shapes/about-4-shape-1.png" alt="delogis">
+                                </div>
+                                <div class="about-five__image__logo wow fadeInLeft" data-wow-delay="200ms">
+                                    <img src="~/assets/images/shapes/logo-icon.png" alt="delogis">
+                                </div>
+                                <div class="about-five__image__brain wow fadeInUp" data-wow-delay="300ms">
+                                    <img src="~/assets/images/shapes/about-4-brain.png" alt="delogis">
+                                </div>
+                                <div class="about-five__image__two wow fadeInRight" data-wow-delay="200ms">
+                                    <img src="~/assets/images/resources/about-5-2.jpg" alt="delogis">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!--About Four End-->
+            <!--Services Four Start-->
+            <section class="services-four" id="services">
+                <div class="container">
+                    <div class="section-title section-title--home-four text-center">
+                        <span class="section-title__tagline"><span class="section-title__tagline__icon"><i class="delogis-icons-two-brain"></i></span>Dịch vụ</span>
+                        <h2 class="section-title__title">
+                            Các Bài Test Tâm Lý Phổ Biến
+                            <br>
+                        </h2>
+                    </div>
+                    <div class="row gutter-y-30">
+                        <!--Services Start-->
+                        <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="00ms">
+                            <div class="services-four__single">
+                                <div class="services-four__single__content">
+                                    <div class="services-four__single__shape"></div>
+                                    <div class="services-four__single__icon">
+                                        <span class="delogis-icons-two-heart"></span>
+                                    </div>
+                                    <h3 class="services-four__single__title"><a href="">Quan Hệ &<br>Tình Cảm</a></h3>
+                                    <p class="services-four__single__text">
+                                        Hiểu rõ hơn về cách bạn xây dựng và duy trì mối quan hệ.
+                                    </p>
+                                </div>
+                                <div class="services-four__single__bottom">
+                                    <div class="services-four__single__img">
+                                        <img src="~/assets/images/services/services-4-1.jpg" alt="delogis">
+                                    </div>
+                                    <a href="" class="services-four__single__btn"><i class="delogis-icons-two-right-arrow"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Services Start-->
+                        <!--Services Start-->
+                        <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="100ms">
+                            <div class="services-four__single">
+                                <div class="services-four__single__content">
+                                    <div class="services-four__single__shape"></div>
+                                    <div class="services-four__single__icon">
+                                        <span class="delogis-icons-two-self-confidence"></span>
+                                    </div>
+                                    <h3 class="services-four__single__title"><a href="">Quản Lý Căng Thẳng &<br>Lo âu</a></h3>
+                                    <p class="services-four__single__text">
+                                        Đánh giá mức độ stress hiện tại và cách giảm thiểu căng thẳng.
+
+                                    </p>
+                                </div>
+                                <div class="services-four__single__bottom">
+                                    <div class="services-four__single__img">
+                                        <img src="~/assets/images/services/services-4-2.jpg" alt="delogis">
+                                    </div>
+                                    <a href="" class="services-four__single__btn"><i class="delogis-icons-two-right-arrow"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Services Start-->
+                        <!--Services Start-->
+                        <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="200ms">
+                            <div class="services-four__single">
+                                <div class="services-four__single__content">
+                                    <div class="services-four__single__shape"></div>
+                                    <div class="services-four__single__icon">
+                                        <span class="delogis-icons-two-family"></span>
+                                    </div>
+                                    <h3 class="services-four__single__title"><a href=""> Tâm Lý Trẻ Em &<br> Gia Đình</a></h3>
+                                    <p class="services-four__single__text">
+                                        Phân tích sự gắn kết và sức khỏe tinh thần của gia đình bạn.
+
+                                    </p>
+                                </div>
+                                <div class="services-four__single__bottom">
+                                    <div class="services-four__single__img">
+                                        <img src="~/assets/images/services/services-4-3.jpg" alt="delogis">
+                                    </div>
+                                    <a href="" class="services-four__single__btn"><i class="delogis-icons-two-right-arrow"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Services Start-->
+                    </div>
+                </div>
+            </section>
+            <!--Services Four End-->
+            <!--Why Choose Four Start-->
+            <section class="why-choose-four">
+                <div class="why-choose-four__bg" style="background-image: url(~/assets/images/shapes/why-choose-4-bg.png);"></div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-7">
+                            <div class="why-choose-four__content">
+                                <div class="section-title section-title--home-four text-left">
+                                    <span class="section-title__tagline"><span class="section-title__tagline__icon"><i class="delogis-icons-two-brain"></i></span> Tại sao chọn chúng tôi?</span>
+                                    <h2 class="section-title__title">Trung Tâm Đánh Giá Tâm Lý<br>Uy Tín Hàng Đầu</h2>
+                                </div>
+                                <p class="why-choose-four__content__text">
+                                    Chúng tôi cung cấp các bài test khoa học, nhanh chóng và chính xác <br>để bạn hiểu rõ hơn về sức khỏe tinh thần của mình.
+                                </p>
+                                <div class="why-choose-four__box-wrapper">
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <div class="why-choose-four__box">
+                                                <div class="why-choose-four__box__top">
+                                                    <div class="why-choose-four__box__icon"><span class="delogis-icons-two-psychologist"></span></div>
+                                                    <h3 class="why-choose-four__box__title">Chuyên Gia Tâm Lý<br></h3>
+                                                </div>
+                                                <p class="why-choose-four__box__text">
+                                                    Đội ngũ chuyên gia nhiều kinh nghiệm hỗ trợ bạn phân tích kết quả.
+
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="why-choose-four__experience count-box">
+                                                <div class="why-choose-four__experience__inner">
+                                                    <div class="why-choose-four__experience__number">
+                                                        <h3 class="why-choose-four__experience__number__item count-text" data-stop="30" data-speed="1500">00</h3>
+                                                        <h3 class="why-choose-four__experience__number__item">+</h3>
+                                                    </div>
+                                                    <h5 class="why-choose-four__experience__text"> Kinh nghiệm<br></h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="why-choose-four__box">
+                                                <div class="why-choose-four__box__top">
+                                                    <div class="why-choose-four__box__icon"><span class="delogis-icons-two-online-business"></span></div>
+                                                    <h3 class="why-choose-four__box__title">Tư Vấn<br> Trực Tuyến</h3>
+                                                </div>
+                                                <p class="why-choose-four__box__text">
+                                                    Kết nối dễ dàng và nhận lời khuyên từ các chuyên gia thông qua hình thức online.
+
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="why-choose-four__border"></div>
+                                <ul class="why-choose-four__content__list">
+                                    <li><span class="why-choose-four__content__list__icon"><i class="delogis-icons-two-check"></i></span>Các bài test khoa học, được chuẩn hóa quốc tế</li>
+                                    <li><span class="why-choose-four__content__list__icon"><i class="delogis-icons-two-check"></i></span>Kết quả nhanh chóng, dễ hiểu và chi tiết</li>
+                                    <li><span class="why-choose-four__content__list__icon"><i class="delogis-icons-two-check"></i></span>Hỗ trợ 24/7 từ đội ngũ chuyên viên</li>
+                                    <li><span class="why-choose-four__content__list__icon"><i class="delogis-icons-two-check"></i></span>Bảo mật tuyệt đối thông tin cá nhân</li>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                        <div class="col-xl-5">
+                            <div class="delogis-stretch-element-inside-column">
+                                <div class="why-choose-four__image wow slideInRight" data-wow-delay="100ms">
+                                    <img src="~/assets/images/resources/why-choose-4.jpg" alt="delogis">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!--Why Choose Four End-->
+            <!--Testimonial Four Start-->
+            <section class="testimonial-four">
+                <div class="container">
+                    <div class="section-title section-title--home-four text-left">
+                        <span class="section-title__tagline"><span class="section-title__tagline__icon"><i class="delogis-icons-two-brain"></i></span>Đánh giá</span>
+                        <h2 class="section-title__title">Họ nói gì về Delogis?<br></h2>
+                    </div>
+                    <div class="testimonial-four__carousel owl-carousel delogis-owl__carousel--with-shadow owl-theme thm-owl__carousel" data-owl-options='{
+                         "loop" : true,
+                         "autoplay" : true,
+                         "margin" : 30,
+                         "nav" : true,
+                         "dots" : false,
+                         "smartSpeed" : 500,
+                         "autoplayTimeout" : 10000,
+                         "navText" : ["<span class=\"delogis-icons-two-left-arrow\"></span>","<span class=\"delogis-icons-two-right-arrow\"></span>"],
+                    "responsive": {
+                        "0": {
+                            "items": 1
+                        },
+                        "768": {
+                            "items": 2
+                        },
+                        "992": {
+                            "items": 3
+                        },
+                        "1200": {
+                            "items": 3
+                        }
+                    }
+                    }'>
+                    <div class="item">
+                        <div class="testimonial-four__single">
+                            <div class="testimonial-four__single__ratings">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                            <div class="testimonial-four__single__quote">
+                                <img src="~/assets/images/shapes/quote.png" alt="delogis">
+                            </div>
+                            <p class="testimonial-four__single__text">
+                                Tôi đánh giá cao việc bài test được chuẩn hóa quốc tế và rất dễ tiếp cận.</p>
+                            <div class="testimonial-four__single__author">
+                                <div class="testimonial-four__single__image"><img src="~/assets/images/testimonial/testimonial-4-1.jpg" alt="delogis"></div>
+                                <h4 class="testimonial-four__single__name">Annette Black</h4>
+                                <span class="testimonial-four__single__designation">Chuyên viên tư vấn</span>
+                            </div>
+                        </div>
+                    </div><!-- Item -->
+                    <div class="item">
+                        <div class="testimonial-four__single">
+                            <div class="testimonial-four__single__ratings">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                            <div class="testimonial-four__single__quote">
+                                <img src="~/assets/images/shapes/quote.png" alt="delogis">
+                            </div>
+                            <p class="testimonial-four__single__text">
+                                Kết quả bài test giúp tôi nhận ra những vấn đề sâu bên trong mà trước đây tôi chưa từng chú ý.                            </p>
+                            <div class="testimonial-four__single__author">
+                                <div class="testimonial-four__single__image"><img src="~/assets/images/testimonial/testimonial-4-2.jpg" alt="delogis"></div>
+                                <h4 class="testimonial-four__single__name">Darrell Steward</h4>
+                                <span class="testimonial-four__single__designation">Nhà sáng lập & CEO</span>
+                            </div>
+                        </div>
+                    </div><!-- Item -->
+                    <div class="item">
+                        <div class="testimonial-four__single">
+                            <div class="testimonial-four__single__ratings">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                            <div class="testimonial-four__single__quote">
+                                <img src="~/assets/images/shapes/quote.png" alt="delogis">
+                            </div>
+                            <p class="testimonial-four__single__text">
+                                Tôi rất ấn tượng với độ chính xác và sự bảo mật thông tin. Đây là công cụ tuyệt vời cho mọi người.                            </p>
+                            <div class="testimonial-four__single__author">
+                                <div class="testimonial-four__single__image"><img src="~/assets/images/testimonial/testimonial-4-3.jpg" alt="delogis"></div>
+                                <h4 class="testimonial-four__single__name">Ronald Richards</h4>
+                                <span class="testimonial-four__single__designation">Tâm lý gia</span>
+                            </div>
+                        </div>
+                    </div><!-- Item --> 
+                    <div class="item">
+                      <div class="testimonial-four__single">
+                            <div class="testimonial-four__single__ratings">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                            <div class="testimonial-four__single__quote">
+                                <img src="~/assets/images/shapes/quote.png" alt="delogis">
+                            </div>
+                            <p class="testimonial-four__single__text">
+                                Tôi đánh giá cao việc bài test được chuẩn hóa quốc tế và rất dễ tiếp cận.s</p>
+                            <div class="testimonial-four__single__author">
+                                <div class="testimonial-four__single__image"><img src="~/assets/images/testimonial/testimonial-4-1.jpg" alt="delogis"></div>
+                                <h4 class="testimonial-four__single__name">Annette Black</h4>
+                                <span class="testimonial-four__single__designation">Chuyên viên tư vấn</span>
+                            </div>
+                        </div>
+                    </div><!-- Item -->
+                    <div class="item">
+                       <div class="testimonial-four__single">
+                            <div class="testimonial-four__single__ratings">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                            <div class="testimonial-four__single__quote">
+                                <img src="~/assets/images/shapes/quote.png" alt="delogis">
+                            </div>
+                            <p class="testimonial-four__single__text">
+                                Tôi rất ấn tượng với độ chính xác và sự bảo mật thông tin. Đây là công cụ tuyệt vời cho mọi người.                            </p>
+                            <div class="testimonial-four__single__author">
+                                <div class="testimonial-four__single__image"><img src="~/assets/images/testimonial/testimonial-4-3.jpg" alt="delogis"></div>
+                                <h4 class="testimonial-four__single__name">Ronald Richards</h4>
+                                <span class="testimonial-four__single__designation">Tâm lý gia</span>
+                            </div>
+                        </div>
+                    </div><!-- Item -->
+                </div>
+                </div>
+            </section>
+
+            <!--Feature Four Start-->
+            <section class="feature-four">
+                <div class="feature-four__bg jarallax" data-jarallax data-speed="0.2" data-imgPosition="50% 0%" style="background-image: url(~/assets/images/backgrounds/feature-bg-4.jpg);"></div>
+                <div class="feature-four__overlay"></div>
+                <div class="container">
+                    <div class="row gutter-y-30">
+                        <!--Feature Start-->
+                        <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="00ms">
+                            <div class="feature-four__single">
+                                <h3 class="feature-four__single__title">Đánh giá cá nhân &<br>  toàn diện</h3>
+                                <div class="feature-four__single__content">
+                                    <p class="feature-four__single__text">
+                                        Khám phá sâu về sức khỏe tinh thần của bạn với những bài test chuẩn hóa, dễ thực hiện.
+
+                                    </p>
+                                    <div class="feature-four__single__image">
+                                        <img src="~/assets/images/resources/feature-4-1.jpg" alt="delogis">
+                                    </div>
+                                    <div class="feature-four__single__hover" style="background-image: url(~/assets/images/resources/feature-4-1-hover.jpg);">
+                                        <p class="feature-four__single__hover__text">
+                                            Khám phá sâu về sức khỏe tinh thần của bạn với những bài test chuẩn hóa, dễ thực hiện.
+                                        </p>
+                                        <a class="feature-four__single__hover__rm" asp-page="/Home/Test"><span class="delogis-icons-two-right-arrow"></span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Feature End-->
+                        <!--Feature Start-->
+                        <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="100ms">
+                            <div class="feature-four__single">
+                                <h3 class="feature-four__single__title">Bài test chuyên biệt <br> cho trẻ em</h3>
+                                <div class="feature-four__single__content">
+                                    <p class="feature-four__single__text">
+                                       Giúp phụ huynh hiểu rõ hơn về tâm lý và hành vi của trẻ để có phương án hỗ trợ kịp thời.
+
+                                    </p>
+                                    <div class="feature-four__single__image">
+                                        <img src="~/assets/images/resources/feature-4-2.jpg" alt="delogis">
+                                    </div>
+                                    <div class="feature-four__single__hover" style="background-image: url(~/assets/images/resources/feature-4-2-hover.jpg);">
+                                        <p class="feature-four__single__hover__text">
+                                          Giúp phụ huynh hiểu rõ hơn về tâm lý và hành vi của trẻ để có phương án hỗ trợ kịp thời.
+
+                                        </p>
+                                        <a class="feature-four__single__hover__rm" asp-page="/Home/Test"><span class="delogis-icons-two-right-arrow"></span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Feature End-->
+                        <!--Feature Start-->
+                        <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="200ms">
+                            <div class="feature-four__single">
+                                <h3 class="feature-four__single__title">Hỗ trợ định hướng <br>tinh thần</h3>
+                                <div class="feature-four__single__content">
+                                    <p class="feature-four__single__text">
+                                        Kết quả test cung cấp những gợi ý hữu ích để cải thiện chất lượng cuộc sống và công việc.
+
+                                    </p>
+                                    <div class="feature-four__single__image">
+                                        <img src="~/assets/images/resources/feature-4-3.jpg" alt="delogis">
+                                    </div>
+                                    <div class="feature-four__single__hover" style="background-image: url(~/assets/images/resources/feature-4-3-hover.jpg);">
+                                        <p class="feature-four__single__hover__text">
+                                            Kết quả test cung cấp những gợi ý hữu ích để cải thiện chất lượng cuộc sống và công việc.
+
+                                        </p>
+                                        <a class="feature-four__single__hover__rm" asp-page="/Home/Test"><span class="delogis-icons-two-right-arrow"></span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Feature End-->
+                    </div>
+                </div>
+            </section>
+            <!--Feature Four End-->
+            <!--CTA Start-->
+            <section class="cta-three">
+                <div class="container">
+                    <div class="cta-three__inner" style="background-image: url(~/assets/images/shapes/cta-bg-3.png);">
+                        <h3 class="cta-three__title">
+                            Khám phá tâm trí bạn <br> Chỉ mất vài phút để hiểu rõ bản thân hơn
+                        </h3>
+                        <a asp-page="/Home/Test" class="thm-btn thm-btn--two">Bắt Đầu Ngay</a>
+                    </div>
+                </div>
+            </section>
+            <!--CTA End-->
+           
+            <!--Blog Two Start-->
+            <section class="blog-three" id="blog">
+                <div class="container">
+                    <div class="section-title section-title--home-four text-center">
+                        <span class="section-title__tagline"><span class="section-title__tagline__icon"><i class="delogis-icons-two-brain"></i></span>Blog/Tin tức</span>
+                        <h2 class="section-title__title">Bài Viết Mới & <br> Tin Tức</h2>
+                    </div>
+                    <div class="row gutter-y-30">
+                        <!--Blog Start-->
+                        <div class="col-lg-6 wow fadeInUp" data-wow-delay="00ms">
+                            <div class="blog-three__single">
+                                <img src="~/assets/images/blog/blog-3-1.jpg" alt="delogis">
+                                <div class="blog-three__single__content">
+                                    <div class="blog-three__single__date">09 Tháng 07, 2025</div>
+                                    <div class="blog-three__single__comment">
+                                        <span class="fas fa-comments"></span><a href="blog-details.html">32 Bình luận</a>
+                                    </div>
+                                    <h3 class="blog-three__single__title">
+                                        <a href="blog-details.html">
+                                            5 Mẹo Hiệu Quả Để Quản Lý Căng Thẳng Tâm Lý
+                                        </a>
+                                    </h3>
+                                    <a class="blog-three__single__rm" href="blog-details.html"><span class="delogis-icons-two-right-arrow"></span></a>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Blog End-->
+                        <div class="col-lg-6 wow fadeInUp" data-wow-delay="100ms">
+                            <ul class="blog-three__list">
+                                <li>
+                                    <div class="blog-three__single__comment">
+                                        <span class="fas fa-comments"></span><a href="blog-details.html"> 20 Bình luận</a>
+                                    </div>
+                                    <h3 class="blog-three__list__title">
+                                        <a href="blog-details.html">
+                                            5 Điều Cần Nhớ Khi Bạn Cảm Thấy Không Thể Tiếp Tục
+                                        </a>
+                                    </h3>
+                                    <a class="blog-three__list__rm" href="blog-details.html">
+                                        Xem thêm<span class="blog-three__list__rm__border"></span>
+                                        <span class="blog-three__list__rm__icon"><i class="delogis-icons-two-right-arrow"></i></span>
+                                    </a>
+                                </li>
+                                <li class="active">
+                                    <div class="blog-three__single__comment">
+                                        <span class="fas fa-comments"></span><a href="blog-details.html">25 Bình luận</a>
+                                    </div>
+                                    <h3 class="blog-three__list__title"><a href="blog-details.html">10 Câu Hỏi Giúp Bạn Hiểu Rõ Hơn Về Trạng Thái Tâm Lý Của Mình</a></h3>
+                                    <a class="blog-three__list__rm" href="blog-details.html">
+                                        Xem thêm<span class="blog-three__list__rm__border"></span>
+                                        <span class="blog-three__list__rm__icon"><i class="delogis-icons-two-right-arrow"></i></span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <div class="blog-three__single__comment">
+                                        <span class="fas fa-comments"></span><a href="blog-details.html">24 Bình luận</a>
+                                    </div>
+                                    <h3 class="blog-three__list__title"><a href="blog-details.html">Làm Thế Nào Để Tự Đánh Giá Sức Khỏe Tâm Lý Của Bạn?</a></h3>
+                                    <a class="blog-three__list__rm" href="blog-details.html">
+                                        Xem thêm<span class="blog-three__list__rm__border"></span>
+                                        <span class="blog-three__list__rm__icon"><i class="delogis-icons-two-right-arrow"></i></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+           
+        <div class="mobile-nav__wrapper">
+            <div class="mobile-nav__overlay mobile-nav__toggler"></div>
+            <!-- /.mobile-nav__overlay -->
+            <div class="mobile-nav__content">
+                <span class="mobile-nav__close mobile-nav__toggler"><i class="fa fa-times"></i></span>
+
+                <div class="logo-box">
+                    <a href="index.html" aria-label="logo image">
+                        <img src="~/assets/images/resources/logo-2.png" width="135"
+                             alt="" />
+                    </a>
+                </div>
+                <!-- /.logo-box -->
+                <div class="mobile-nav__container"></div>
+                <!-- /.mobile-nav__container -->
+                <ul class="mobile-nav__contact list-unstyled">
+                    <li>
+                        <i class="fa fa-envelope"></i>
+                        <a href="mailto:needhelp@packageName__.com">needhelp@delogis.com</a>
+                    </li>
+                    <li>
+                        <i class="fa fa-phone-alt"></i>
+                        <a href="tel:666-888-0000">666 888 0000</a>
+                    </li>
+                </ul><!-- /.mobile-nav__contact -->
+                <div class="mobile-nav__top">
+                    <div class="mobile-nav__social">
+                        <a href="#" class="fab fa-twitter"></a>
+                        <a href="#" class="fab fa-facebook-square"></a>
+                        <a href="#" class="fab fa-pinterest-p"></a>
+                        <a href="#" class="fab fa-instagram"></a>
+                    </div><!-- /.mobile-nav__social -->
+                </div><!-- /.mobile-nav__top -->
+            </div>
+            <!-- /.mobile-nav__content -->
+        </div>
+        <!-- /.mobile-nav__wrapper -->
+
+        <div class="search-popup">
+            <div class="search-popup__overlay search-toggler"></div>
+            <!-- /.search-popup__overlay -->
+            <div class="search-popup__content">
+                <form action="#">
+                    <label for="search" class="sr-only">search here</label><!-- /.sr-only -->
+                    <input type="text" id="search" placeholder="Search Here..." />
+                    <button type="submit" aria-label="search submit" class="thm-btn thm-btn--two">
+                        <i class="icon-magnifying-glass"></i>
+                    </button>
+                </form>
+            </div>
+            <!-- /.search-popup__content -->
+        </div>
+        <!-- /.search-popup -->
+
+        <a href="#" data-target="html" class="scroll-to-target scroll-to-top"><i class="icon-up-arrow"></i></a>
+
+
+        <script src="~/assets/vendors/jquery/jquery-3.6.0.min.js"></script>
+        <script src="~/assets/vendors/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="~/assets/vendors/jarallax/jarallax.min.js"></script>
+        <script src="~/assets/vendors/jquery-ajaxchimp/jquery.ajaxchimp.min.js"></script>
+        <script src="~/assets/vendors/jquery-appear/jquery.appear.min.js"></script>
+        <script src="~/assets/vendors/jquery-circle-progress/jquery.circle-progress.min.js"></script>
+        <script src="~/assets/vendors/jquery-magnific-popup/jquery.magnific-popup.min.js"></script>
+        <script src="~/assets/vendors/jquery-validate/jquery.validate.min.js"></script>
+        <script src="~/assets/vendors/nouislider/nouislider.min.js"></script>
+        <script src="~/assets/vendors/odometer/odometer.min.js"></script>
+        <script src="~/assets/vendors/swiper/swiper.min.js"></script>
+        <script src="~/assets/vendors/tiny-slider/tiny-slider.min.js"></script>
+        <script src="~/assets/vendors/wnumb/wNumb.min.js"></script>
+        <script src="~/assets/vendors/wow/wow.js"></script>
+        <script src="~/assets/vendors/isotope/isotope.js"></script>
+        <script src="~/assets/vendors/countdown/countdown.min.js"></script>
+        <script src="~/assets/vendors/owl-carousel/owl.carousel.min.js"></script>
+        <script src="~/assets/vendors/bxslider/jquery.bxslider.min.js"></script>
+        <script src="~/assets/vendors/bootstrap-select/js/bootstrap-select.min.js"></script>
+        <script src="~/assets/vendors/vegas/vegas.min.js"></script>
+        <script src="~/assets/vendors/jquery-ui/jquery-ui.js"></script>
+        <script src="~/assets/vendors/timepicker/timePicker.js"></script>
+        <script src="~/assets/vendors/circleType/jquery.circleType.js"></script>
+        <script src="~/assets/vendors/circleType/jquery.lettering.min.js"></script>
+
+        <!-- template js -->
+        <script src="~/assets/js/delogis.js"></script>
+    </body>
+    <section class="main-header-topbar">
+        <div class="container">
+            <div class="main-header-topbar__wrapper">
+                <ul class="main-header-topbar__info">
+                    <li>
+                        <span class="main-header-topbar__info__icon"><i class="fas fa-map-marker-alt"></i></span>
+                        <a href="https://www.google.com/maps">TPHCM, Viet Nam</a>
+                    </li>
+                    <li>
+                        <span class="main-header-topbar__info__icon"><i class="fas fa-envelope"></i></span>
+                        <a href="mailto:needhelp@company.com">Delogis@company.com</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        ...
+    </section>
+    <!-- Các section khác copy y nguyên -->
+</div>

@@ -1,0 +1,17 @@
+﻿@page
+@model SPTS_Writer.Pages.Test.CompleteModel
+@{
+    ViewData["Title"] = "Test Result";
+}
+
+<div class="container mt-5">
+    <h2 class="text-primary">🎉 Kết quả MBTI của bạn là:</h2>
+    <h1 class="display-3 text-success">@Model.MbtiResult</h1>
+
+    <div class="mt-4">
+        <h4 class="text-secondary">💡 Mô tả tính cách:</h4>
+        <p class="lead">@Model.MbtiDescription</p>
+    </div>
+
+    <a href="/" class="btn btn-outline-primary mt-3">Quay về trang chủ</a>
+</div>

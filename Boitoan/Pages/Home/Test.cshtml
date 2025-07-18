@@ -1,0 +1,199 @@
+﻿@page
+@model Boitoan.Pages.Home.TestModel
+@{
+    ViewData["Title"] = "Services";
+    Layout = null;
+
+    var random = new Random();
+    var imageList = new List<string>
+    {
+        "~/assets/images/services/services-2-1.jpg",
+        "~/assets/images/services/services-2-2.jpg",
+        "~/assets/images/services/services-2-3.jpg",
+        "~/assets/images/services/services-2-4.jpg",
+        "~/assets/images/services/services-2-5.jpg",
+        "~/assets/images/services/services-2-6.jpg"
+    };
+
+    var iconList = new List<string>
+    {
+        "icon-heart",
+        "icon-self-confidence",
+        "icon-family",
+        "icon-meeting",
+        "icon-anxiety",
+        "icon-family-3"
+    };
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title> Services || delogis || delogis HTML 5 Template </title>
+    <link rel="apple-touch-icon" sizes="180x180" href="~/assets/images/favicons/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="~/assets/images/favicons/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="~/assets/images/favicons/favicon-16x16.png" />
+    <link rel="manifest" href="~/assets/images/favicons/site.webmanifest" />
+    <meta name="description" content="delogis HTML 5 Template " />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100;200;300;400;500;600;700;800;900&amp;display=swap"
+          rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Castoro:ital@0;1&amp;display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="~/assets/vendors/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/assets/vendors/animate/animate.min.css" />
+    <link rel="stylesheet" href="~/assets/vendors/animate/custom-animate.css" />
+    <link rel="stylesheet" href="~/assets/vendors/fontawesome/css/all.min.css" />
+    <link rel="stylesheet" href="~/assets/vendors/jarallax/jarallax.css" />
+    <link rel="stylesheet" href="~/assets/vendors/jquery-magnific-popup/jquery.magnific-popup.css" />
+    <link rel="stylesheet" href="~/assets/vendors/nouislider/nouislider.min.css" />
+    <link rel="stylesheet" href="~/assets/vendors/nouislider/nouislider.pips.css" />
+    <link rel="stylesheet" href="~/assets/vendors/odometer/odometer.min.css" />
+    <link rel="stylesheet" href="~/assets/vendors/swiper/swiper.min.css" />
+    <link rel="stylesheet" href="~/assets/vendors/delogis-icons/style.css">
+    <link rel="stylesheet" href="~/assets/vendors/tiny-slider/tiny-slider.min.css" />
+    <link rel="stylesheet" href="~/assets/vendors/reey-font/stylesheet.css" />
+    <link rel="stylesheet" href="~/assets/vendors/alagambe-font/stylesheet.css" />
+    <link rel="stylesheet" href="~/assets/vendors/owl-carousel/owl.carousel.min.css" />
+    <link rel="stylesheet" href="~/assets/vendors/owl-carousel/owl.theme.default.min.css" />
+    <link rel="stylesheet" href="~/assets/vendors/bxslider/jquery.bxslider.css" />
+    <link rel="stylesheet" href="~/assets/vendors/bootstrap-select/css/bootstrap-select.min.css" />
+    <link rel="stylesheet" href="~/assets/vendors/vegas/vegas.min.css" />
+    <link rel="stylesheet" href="~/assets/vendors/jquery-ui/jquery-ui.css" />
+    <link rel="stylesheet" href="~/assets/vendors/timepicker/timePicker.css" />
+    <link rel="stylesheet" href="~/assets/css/delogis.css" />
+</head>
+
+<body class="custom-cursor">
+    <div class="custom-cursor__cursor"></div>
+    <div class="custom-cursor__cursor-two"></div>
+    <div class="preloader">
+        <div class="preloader__image"></div>
+    </div>
+
+    <div class="page-wrapper">
+        <header class="main-header-four">
+            <nav class="main-menu">
+                <div class="container">
+                    <div class="main-menu__wrapper clearfix">
+                        <div class="main-header-four__logo">
+                            <a href="index.html"><img src="~/assets/images/resources/logo-3.png" alt="delogis" width="140"></a>
+                        </div>
+                        <div class="main-menu__main-menu-box">
+                            <ul class="main-menu__list one-page-scroll-menu">
+                                <li class="dropdown current megamenu scrollToLink">
+                                    <a href="~/Home">Trang chủ</a>
+                                </li>
+                                <li class="scrollToLink">
+                                    <a href="#about">Về chúng tôi</a>
+                                </li>
+                                <li class="scrollToLink">
+                                    <a href="#services">Dịch vụ</a>
+                                </li>
+                                <li class="scrollToLink">
+                                    <a href="#blog">Blog</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <div class="stricky-header stricked-menu main-menu">
+            <div class="sticky-header__content"></div>
+        </div>
+
+        <section class="page-header">
+            <div class="page-header-bg" style="background-image: url('@Url.Content("~/assets/images/backgrounds/page-header-bg.jpg")')">
+            </div>
+            <div class="container">
+                <div class="page-header__inner">
+                    <h2>Bài kiểm tra</h2>
+                    <ul class="thm-breadcrumb list-unstyled">
+                        <li><a href="~/Home">Trang chủ</a></li>
+                        <li><span>/</span></li>
+                        <li>Bài kiểm tra</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <section class="services-page">
+            <div class="container">
+                <div class="row">
+                    @foreach (var test in Model.Tests)
+                    {
+                        var randomImage = Url.Content(imageList[random.Next(imageList.Count)]);
+                        var randomIcon = iconList[random.Next(iconList.Count)];
+                        var delay = $"{random.Next(100, 700)}ms";
+
+                        <div class="col-xl-4 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="@delay">
+                            <div class="services-two__single">
+                                <div class="services-two__img-box">
+                                    <div class="services-two__img">
+                                        <img src="@randomImage" alt="@test.Method" />
+                                    </div>
+                                    <div class="services-two__icon">
+                                        <span class="@randomIcon"></span>
+                                    </div>
+                                </div>
+                                <div class="services-two__content">
+                                    <div class="services-two__title-box">
+                                        <h3 class="services-two__title">
+                                            <a href="/Home/TestDetail/@test.Id">
+                                                @test.Method Test
+                                            </a>
+                                        </h3>
+                                        <p class="services-two__text">
+                                            Tác giả: @test.Author <br />
+                                            Số câu : @test.NumberOfQuestions
+                                        </p>
+                                    </div>
+                                    <div class="services-two__btn-box">
+                                        <a href="/Test/Index?id=@test.Id"><span class="icon-right-arrow"></span>Làm kiểm tra ngay</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </section>
+
+    <a href="#" data-target="html" class="scroll-to-target scroll-to-top"><i class="icon-up-arrow"></i></a>
+
+    <script src="~/assets/vendors/jquery/jquery-3.6.0.min.js"></script>
+    <script src="~/assets/vendors/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/assets/vendors/jarallax/jarallax.min.js"></script>
+    <script src="~/assets/vendors/jquery-ajaxchimp/jquery.ajaxchimp.min.js"></script>
+    <script src="~/assets/vendors/jquery-appear/jquery.appear.min.js"></script>
+    <script src="~/assets/vendors/jquery-circle-progress/jquery.circle-progress.min.js"></script>
+    <script src="~/assets/vendors/jquery-magnific-popup/jquery.magnific-popup.min.js"></script>
+    <script src="~/assets/vendors/jquery-validate/jquery.validate.min.js"></script>
+    <script src="~/assets/vendors/nouislider/nouislider.min.js"></script>
+    <script src="~/assets/vendors/odometer/odometer.min.js"></script>
+    <script src="~/assets/vendors/swiper/swiper.min.js"></script>
+    <script src="~/assets/vendors/tiny-slider/tiny-slider.min.js"></script>
+    <script src="~/assets/vendors/wnumb/wNumb.min.js"></script>
+    <script src="~/assets/vendors/wow/wow.js"></script>
+    <script src="~/assets/vendors/isotope/isotope.js"></script>
+    <script src="~/assets/vendors/countdown/countdown.min.js"></script>
+    <script src="~/assets/vendors/owl-carousel/owl.carousel.min.js"></script>
+    <script src="~/assets/vendors/bxslider/jquery.bxslider.min.js"></script>
+    <script src="~/assets/vendors/bootstrap-select/js/bootstrap-select.min.js"></script>
+    <script src="~/assets/vendors/vegas/vegas.min.js"></script>
+    <script src="~/assets/vendors/jquery-ui/jquery-ui.js"></script>
+    <script src="~/assets/vendors/timepicker/timePicker.js"></script>
+    <script src="~/assets/vendors/circleType/jquery.circleType.js"></script>
+    <script src="~/assets/vendors/circleType/jquery.lettering.min.js"></script>
+    <script src="~/assets/js/delogis.js"></script>
+</body>
+
+</html>
