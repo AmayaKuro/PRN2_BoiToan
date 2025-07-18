@@ -1,13 +1,30 @@
+using Boitoan.BLL;
+using Boitoan.DAL.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using MongoDB.Driver;
 using Newtonsoft.Json;
-using Boitoan.DAL.Entities;
+using System.Security.Claims;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace SPTS_Writer.Pages.Test
 {
     public class CompleteModel : PageModel
     {
+        private readonly TestHistoryService _testHistoryService;
+        private readonly UserService _userService;
+        private readonly MongoDbContext _context;
+
+        public CompleteModel(TestHistoryService testHistoryService, UserService userService, MongoDbContext context)
+        {
+            _testHistoryService = testHistoryService;
+            _userService = userService;
+            _context = context;
+
+        }
         public string MbtiResult { get; set; } = string.Empty;
+        public string MbtiDescription { get; set; } = string.Empty;
 
         public async Task<IActionResult> OnGetAsync()
         {
@@ -42,6 +59,31 @@ namespace SPTS_Writer.Pages.Test
                 (mbtiCounts["S"] >= mbtiCounts["N"] ? "S" : "N") +
                 (mbtiCounts["T"] >= mbtiCounts["F"] ? "T" : "F") +
                 (mbtiCounts["J"] >= mbtiCounts["P"] ? "J" : "P");
+
+            // Get userId from claims and parse to Guid
+            string userId = User.FindFirst(ClaimTypes.Sid)?.Value
+              ?? User.FindFirst(ClaimTypes.NameIdentifier)?.Value
+              ?? string.Empty;
+
+            var user = await _userService.GetUserByIdAsync(userId);
+
+            // Get testId from TempData as string
+            string testId = TempData.ContainsKey("currentTestId") ? TempData["currentTestId"]?.ToString() : string.Empty;
+
+            var answerList = answers.Select(a => new Answer { QuestionId = a.Key, Value = a.Value }).ToList();
+
+            _testHistoryService.SaveTestResult(
+                userId,    // string
+                testId,    // string
+                MbtiResult,
+                TestStatus.Completed,
+                answerList
+            );
+
+            var latest = _context.Histories.Find(_ => true).SortByDescending(h => h.CreatedAt).FirstOrDefault();
+            Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(latest, Formatting.Indented));
+
+            MbtiDescription = MbtiHelper.GetDescription(MbtiResult);
 
             TempData.Clear(); // Optional: clear after finishing
 
