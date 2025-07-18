@@ -10,10 +10,7 @@ namespace SPTS_Writer.Services.Abstraction
 
         public  Task AddTestAsync(Test test);
 
-
-
         public  Task UpdateTestAsync(Test test);
-
 
         public  Task DeleteTestAsync(string id);
         Task<long> GetTotalTests();
