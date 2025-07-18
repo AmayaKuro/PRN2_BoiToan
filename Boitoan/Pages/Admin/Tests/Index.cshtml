@@ -1,0 +1,107 @@
+@page
+@model TestsIndexModel
+@{
+    ViewData["Title"] = "Tests";
+}
+
+<style>
+    .test-card {
+        border: none;
+        border-radius: 1.2rem;
+        box-shadow: 0 4px 24px rgba(44,62,80,0.10);
+        background: linear-gradient(135deg, #f8fafc 60%, #e3e9f7 100%);
+        margin-bottom: 2rem;
+        transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .test-card:hover {
+        box-shadow: 0 8px 32px rgba(44,62,80,0.18);
+        transform: translateY(-2px) scale(1.01);
+    }
+    .test-card-header {
+        background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
+        color: #fff;
+        font-weight: 600;
+        font-size: 1.1rem;
+        border-top-left-radius: 1.2rem;
+        border-top-right-radius: 1.2rem;
+        padding: 0.75rem 1.25rem;
+    }
+    .test-card-body {
+        padding: 1.5rem;
+    }
+    .action-btn {
+        min-width: 2.5rem;
+        margin-right: 0.3rem;
+    }
+    .add-btn {
+        background: linear-gradient(90deg, #43e97b 0%, #38f9d7 100%);
+        color: #fff;
+        border: none;
+    }
+    .add-btn:hover {
+        background: linear-gradient(90deg, #38f9d7 0%, #43e97b 100%);
+        color: #fff;
+    }
+    .details-btn {
+        background: linear-gradient(90deg, #36d1c4 0%, #5b86e5 100%);
+        color: #fff;
+        border: none;
+    }
+    .details-btn:hover {
+        background: linear-gradient(90deg, #5b86e5 0%, #36d1c4 100%);
+        color: #fff;
+    }
+    .edit-btn {
+        background: linear-gradient(90deg, #f7971e 0%, #ffd200 100%);
+        color: #fff;
+        border: none;
+    }
+    .edit-btn:hover {
+        background: linear-gradient(90deg, #ffd200 0%, #f7971e 100%);
+        color: #fff;
+    }
+    .delete-btn {
+        background: linear-gradient(90deg, #ff5858 0%, #f09819 100%);
+        color: #fff;
+        border: none;
+    }
+    .delete-btn:hover {
+        background: linear-gradient(90deg, #f09819 0%, #ff5858 100%);
+        color: #fff;
+    }
+</style>
+
+<h2 class="mb-4" style="font-weight:700;color:#2c3e50;text-shadow:1px 2px 8px #e0e0e0;">Tests</h2>
+<a asp-page="Create" class="btn add-btn mb-3"><i class="bi bi-plus-circle"></i> Add Test</a>
+<div class="row">
+@foreach (var test in Model.Tests)
+{
+    <div class="col-md-6 col-lg-4">
+        <div class="test-card h-100">
+            <div class="test-card-header">
+                <i class="bi bi-clipboard2"></i> @test.Method
+            </div>
+            <div class="test-card-body">
+                <div><strong>Author:</strong> @test.Author</div>
+                <div><strong>Date:</strong> @test.TestDate.ToShortDateString()</div>
+                <div><strong>Questions:</strong> @test.NumberOfQuestions</div>
+                <div class="mt-3">
+                    <a asp-page="Details" asp-route-id="@test.Id" class="btn details-btn btn-sm action-btn" title="Details">
+                        <i class="bi bi-info-circle"></i>
+                    </a>
+                    <a asp-page="Edit" asp-route-id="@test.Id" class="btn edit-btn btn-sm action-btn" title="Edit">
+                        <i class="bi bi-pencil-square"></i>
+                    </a>
+                    <a asp-page="Delete" asp-route-id="@test.Id" class="btn delete-btn btn-sm action-btn" title="Delete">
+                        <i class="bi bi-trash"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+</div>
+
+@section Scripts {
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+}
