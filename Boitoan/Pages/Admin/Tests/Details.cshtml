@@ -1,0 +1,117 @@
+@page "{id}"
+@model TestDetailsModel
+@{
+    ViewData["Title"] = "Test Details";
+}
+
+<style>
+    .crud-card {
+        border: none;
+        border-radius: 1.2rem;
+        box-shadow: 0 4px 24px rgba(44,62,80,0.10);
+        background: linear-gradient(135deg, #f8fafc 60%, #e3e9f7 100%);
+        margin: 2rem auto;
+        max-width: 700px;
+        padding: 2.5rem 2rem 2rem 2rem;
+    }
+
+    .crud-title {
+        font-weight: 700;
+        color: #2c3e50;
+        text-shadow: 1px 2px 8px #e0e0e0;
+        margin-bottom: 2rem;
+        text-align: center;
+    }
+
+    .badge {
+        font-size: 0.95em;
+    }
+
+    .action-btn {
+        min-width: 2.5rem;
+        margin-right: 0.3rem;
+    }
+
+    .edit-btn {
+        background: linear-gradient(90deg, #f7971e 0%, #ffd200 100%);
+        color: #fff;
+        border: none;
+    }
+
+        .edit-btn:hover {
+            background: linear-gradient(90deg, #ffd200 0%, #f7971e 100%);
+            color: #fff;
+        }
+
+    .delete-btn {
+        background: linear-gradient(90deg, #ff5858 0%, #f09819 100%);
+        color: #fff;
+        border: none;
+    }
+
+        .delete-btn:hover {
+            background: linear-gradient(90deg, #f09819 0%, #ff5858 100%);
+            color: #fff;
+        }
+
+    .back-btn {
+        background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
+        color: #fff;
+        border: none;
+    }
+
+        .back-btn:hover {
+            background: linear-gradient(90deg, #2575fc 0%, #6a11cb 100%);
+            color: #fff;
+        }
+</style>
+
+<div class="crud-card">
+    <h2 class="crud-title">Test Details</h2>
+    <div>
+        <strong>Method:</strong> @Model.Test.Method <br />
+        <strong>Author:</strong> @Model.Test.Author <br />
+        <strong>Date:</strong> @Model.Test.TestDate.ToShortDateString() <br />
+        <strong>Questions:</strong> @Model.Test.NumberOfQuestions
+    </div>
+    <hr />
+    <h4 style="font-weight:600;color:#2575fc;">Questions</h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Detail</th>
+                <th>Type</th>
+                <th>Options</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var q in Model.Test.Questions)
+            {
+                <tr>
+                    <td>@q.Detail</td>
+                    <td>@q.Type</td>
+                    <td>
+                        @foreach (var opt in q.Options)
+                        {
+                            <span class="badge bg-secondary">@opt.Detail (@opt.Value)</span>
+                        }
+                    </td>
+                    <td>
+                        <a asp-page="EditQuestion" asp-route-testId="@Model.Test.Id" asp-route-questionId="@q.Id" class="btn edit-btn btn-sm action-btn" title="Edit">
+                            <i class="bi bi-pencil-square"></i>
+                        </a>
+                        <a asp-page="DeleteQuestion" asp-route-testId="@Model.Test.Id" asp-route-questionId="@q.Id" class="btn delete-btn btn-sm action-btn" title="Delete">
+                            <i class="bi bi-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a asp-page="Index" class="btn back-btn mt-2"><i class="bi bi-arrow-left"></i> Back to Tests</a>
+</div>
+
+@section Scripts {
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+}

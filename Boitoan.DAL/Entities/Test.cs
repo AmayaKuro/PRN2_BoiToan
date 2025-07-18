@@ -1,6 +1,4 @@
-﻿using Boitoan.DAL.Entities;
-
-namespace Boitoan.DAL.Entities;
+﻿namespace Boitoan.DAL.Entities;
 
 public class Test : Base
 {

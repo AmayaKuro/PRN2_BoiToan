@@ -4,6 +4,7 @@ namespace SPTS_Writer.Services.Abstraction
 {
     public interface ITestService
     {
+
         public  Task<Test?> GetTestByIdAsync(string id);
 
         public  Task<IEnumerable<Test>> GetAllTestsAsync();
@@ -14,6 +15,5 @@ namespace SPTS_Writer.Services.Abstraction
 
         public  Task DeleteTestAsync(string id);
         Task<long> GetTotalTests();
-        Task<long> GetTotalTestHistory();
     }
 }
