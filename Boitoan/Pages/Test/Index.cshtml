@@ -208,8 +208,8 @@ int questionsPerPage = 5;
         <div class="test-header">
             <h1 class="test-title">@Model.ViewModel.Test.Method</h1>
             <p class="test-info">
-                <strong>Author:</strong> @Model.ViewModel.Test.Author |
-                <strong>Date:</strong> @Model.ViewModel.Test.TestDate.ToShortDateString()
+                <strong>Tác giả:</strong> @Model.ViewModel.Test.Author |
+                <strong>Ngày:</strong> @Model.ViewModel.Test.TestDate.ToShortDateString()
             </p>
         </div>
 
@@ -224,9 +224,9 @@ int questionsPerPage = 5;
                 <div class="test-card">
                     <div class="card-body p-4">
                         <div class="d-flex justify-content-between align-items-center mb-4">
-                            <h4 class="mb-0">Page @currentPage of @totalPages</h4>
+                            <h4 class="mb-0">Trang số @currentPage trong @totalPages</h4>
                             <span class="badge bg-primary" style="font-size: 0.9rem;" id="answerBadge">
-                                <span id="answeredCount">@selectedAnswers.Where(x => allQuestions.Any(q => q.Id == x.Key)).Count()</span> / @allQuestions.Count Answered
+                                <span id="answeredCount">@selectedAnswers.Where(x => allQuestions.Any(q => q.Id == x.Key)).Count()</span> / @allQuestions.Count câu trả lời
                             </span>
                         </div>
 
@@ -239,7 +239,7 @@ int questionsPerPage = 5;
                             var question = questions[i];
                             <div class="question-card">
                                 <h5 class="question-title">
-                                    Question @((currentPage - 1) * questionsPerPage + i + 1): @question.Detail
+                                    Câu hỏi  @((currentPage - 1) * questionsPerPage + i + 1): @question.Detail
                                 </h5>
                                 <fieldset>
                                     @foreach (var option in question.Options)
@@ -268,7 +268,7 @@ int questionsPerPage = 5;
                                 @if (currentPage > 1)
                                 {
                                 <a class="btn btn-secondary-custom btn-custom" asp-page="/Test/Index" asp-route-id="@Model.ViewModel.Test.Id" asp-route-currentPage="@(currentPage - 1)">
-                                    ← Previous
+                                    ← Trang trước
                                 </a>
                                 }
                                 else
@@ -276,7 +276,7 @@ int questionsPerPage = 5;
                                 <div></div>
                                 }
                                 <button type="submit" class="btn btn-primary-custom btn-custom">
-                                    @(currentPage == totalPages ? "🏁 Finish Test" : "Next →")
+                                    @(currentPage == totalPages ? "🏁 Gửi bài" : "Trang tiếp →")
                                 </button>
                             </div>
                         </form>
@@ -288,7 +288,7 @@ int questionsPerPage = 5;
             <div class="col-lg-4">
                 <div class="navigator-card">
                     <div class="card-body p-4">
-                        <h5 class="mb-3 text-center" style="color: #4a5568; font-weight: 600;">Question Navigator</h5>
+                        <h5 class="mb-3 text-center" style="color: #4a5568; font-weight: 600;">Số câu hỏi</h5>
                         <div class="d-flex flex-wrap justify-content-center gap-1">
                             @for (int i = 0; i < allQuestions.Count; i++)
                             {
@@ -316,11 +316,11 @@ int questionsPerPage = 5;
                             <div class="d-flex justify-content-between text-sm">
                                 <div class="d-flex align-items-center">
                                     <div class="question-nav-btn answered me-2" style="width: 20px; height: 20px; font-size: 0.7rem;"></div>
-                                    <span style="font-size: 0.85rem; color: #4a5568;">Answered</span>
+                                    <span style="font-size: 0.85rem; color: #4a5568;">Đã trả lời</span>
                                 </div>
                                 <div class="d-flex align-items-center">
                                     <div class="question-nav-btn unanswered me-2" style="width: 20px; height: 20px; font-size: 0.7rem;"></div>
-                                    <span style="font-size: 0.85rem; color: #4a5568;">Not answered</span>
+                                    <span style="font-size: 0.85rem; color: #4a5568;">Chưa trả lời</span>
                                 </div>
                             </div>
                         </div>
