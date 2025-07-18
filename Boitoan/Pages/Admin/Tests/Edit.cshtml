@@ -5,7 +5,7 @@
 @model EditTestModel
 @{
     ViewData["Title"] = "Edit Test";
-    Layout = null;
+    Layout = "_AdminLayout";
 }
 
 <style>
@@ -94,7 +94,7 @@
     <div class="form-section-title"><i class="bi bi-question-circle"></i> Questions</div>
     @for (int i = 0; i < Model.Test.Questions.Count; i++)
     {
-        <div class="question-card">
+        <div class="question-card" id="question-@i">
             <div class="question-card-header">
                 Question @(i + 1)
                 <button type="submit" name="removeQuestion" value="@i" class="btn remove-btn btn-sm float-end" title="Remove Question">
@@ -113,7 +113,7 @@
                         <tbody>
                             @for (int j = 0; j < Model.Test.Questions[i].Options.Count; j++)
                             {
-                                <tr>
+                                <tr id="option-@i-@j">
                                     <td style="width:40%">
                                         <input asp-for="Test.Questions[@i].Options[@j].Detail" class="form-control form-control-sm" placeholder="Option text" />
                                     </td>
@@ -158,5 +158,23 @@
                 summary.classList.add('d-none');
             }
         })();
+
+        // Scroll to newly added question/option if needed
+        window.addEventListener('DOMContentLoaded', function () {
+            var scrollToQuestion = '@Model.ScrollToQuestion';
+            var scrollToOption = '@Model.ScrollToOption';
+            if (scrollToQuestion && scrollToQuestion !== '' && scrollToQuestion !== '0') {
+                var qElem = document.getElementById('question-' + scrollToQuestion);
+                if (qElem) {
+                    qElem.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }
+            if (scrollToOption && scrollToOption !== '' && scrollToOption !== '0') {
+                var oElem = document.getElementById('option-' + scrollToQuestion + '-' + scrollToOption);
+                if (oElem) {
+                    oElem.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }
+        });
     </script>
 }

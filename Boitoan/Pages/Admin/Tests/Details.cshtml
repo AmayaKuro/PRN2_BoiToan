@@ -2,6 +2,7 @@
 @model TestDetailsModel
 @{
     ViewData["Title"] = "Test Details";
+    Layout = "_AdminLayout";
 }
 
 <style>
@@ -11,7 +12,7 @@
         box-shadow: 0 4px 24px rgba(44,62,80,0.10);
         background: linear-gradient(135deg, #f8fafc 60%, #e3e9f7 100%);
         margin: 2rem auto;
-        max-width: 700px;
+        max-width: 90%;
         padding: 2.5rem 2rem 2rem 2rem;
     }
 
@@ -25,6 +26,10 @@
 
     .badge {
         font-size: 0.95em;
+        white-space: pre-line;
+        word-break: break-word;
+        max-width: 100%;
+        margin-bottom: 1rem;
     }
 
     .action-btn {

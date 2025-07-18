@@ -18,10 +18,13 @@ public class CreateTestModel : PageModel
 
     public async Task<IActionResult> OnPostAsync()
     {
+        // Remove submit buttons
+        ModelState.Remove("Test.Questions");
+
         Test.TestDate = DateTime.Now;
+        Test.Questions = new List<Question>();
 
         if (!ModelState.IsValid) return Page();
-        Test.Questions = new List<Question>();
         Test.NumberOfQuestions = 0;
         await _testService.AddTestAsync(Test);
         return RedirectToPage("Index");

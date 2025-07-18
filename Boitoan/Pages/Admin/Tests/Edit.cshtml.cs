@@ -9,6 +9,9 @@ public class EditTestModel : PageModel
     [BindProperty]
     public Test Test { get; set; }
 
+    public int? ScrollToQuestion { get; set; }
+    public int? ScrollToOption { get; set; }
+
     public EditTestModel(TestService testService)
     {
         _testService = testService;
@@ -24,13 +27,8 @@ public class EditTestModel : PageModel
         return Page();
     }
 
-    public async Task<IActionResult> OnPostAsync(string addQuestion, int? removeQuestion, string addOption, string removeOption)
+    public async Task<IActionResult> OnPostAsync(string? addQuestion, int? removeQuestion, string? addOption, string? removeOption)
     {
-        // Remove submit buttons
-        ModelState.Remove("addQuestion");
-        ModelState.Remove("addOption");
-        ModelState.Remove("removeOption");
-
         // Ensure lists are not null
         if (Test.Questions == null) Test.Questions = new List<Question>();
         foreach (var q in Test.Questions)
@@ -41,11 +39,15 @@ public class EditTestModel : PageModel
         {
             int nextId = Test.Questions.Count > 0 ? Test.Questions.Max(q => q.Id) + 1 : 1;
             Test.Questions.Add(new Question { Id = nextId, Type = Test.Method, Options = new List<Option>() });
+
+            ScrollToQuestion = Test.Questions.Count - 1;
+
+            ModelState.Clear();
             return Page();
         }
 
         // Remove Question
-        if (removeQuestion.HasValue)
+        if (removeQuestion.HasValue)    
         {
             if (removeQuestion.Value >= 0 && removeQuestion.Value < Test.Questions.Count)
                 Test.Questions.RemoveAt(removeQuestion.Value);
@@ -57,6 +59,11 @@ public class EditTestModel : PageModel
         {
             var options = Test.Questions[qIdx].Options;
             options.Add(new Option { Detail = "", Value = AllAnswer.E });
+
+            ScrollToQuestion = qIdx;
+            ScrollToOption = options.Count - 1;
+
+            ModelState.Clear();
             return Page();
         }
 
