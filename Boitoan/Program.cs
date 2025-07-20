@@ -1,12 +1,15 @@
-﻿using SPTS_Writer.Services.Abstraction;
-using SPTS_Writer.Services;
+﻿using Boitoan;
+using Boitoan.Hubs;
 using Microsoft.AspNetCore.Authentication.Google;
+using SPTS_Writer.Services;
+using SPTS_Writer.Services.Abstraction;
 
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddSignalR();
 
 builder.Services.AddDependencyInjection(builder.Configuration);
 
@@ -44,6 +47,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.MapHub<SignalRHub>("/signalrhub");
 
 app.UseAuthorization();
 

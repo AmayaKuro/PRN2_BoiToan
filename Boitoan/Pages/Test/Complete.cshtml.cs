@@ -1,8 +1,11 @@
+using Boitoan;
 using Boitoan.BLL;
 using Boitoan.DAL.Entities;
+using Boitoan.Hubs;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.SignalR;
 using MongoDB.Driver;
 using Newtonsoft.Json;
 using System.Security.Claims;
@@ -15,12 +18,14 @@ namespace SPTS_Writer.Pages.Test
         private readonly TestHistoryService _testHistoryService;
         private readonly UserService _userService;
         private readonly MongoDbContext _context;
+        private readonly IHubContext<SignalRHub> _hubContext;
 
-        public CompleteModel(TestHistoryService testHistoryService, UserService userService, MongoDbContext context)
+        public CompleteModel(TestHistoryService testHistoryService, UserService userService, MongoDbContext context, IHubContext<SignalRHub> hubContext)
         {
             _testHistoryService = testHistoryService;
             _userService = userService;
             _context = context;
+            _hubContext = hubContext;
 
         }
         public string MbtiResult { get; set; } = string.Empty;
@@ -79,6 +84,7 @@ namespace SPTS_Writer.Pages.Test
                 TestStatus.Completed,
                 answerList
             );
+            await _hubContext.Clients.All.SendAsync("ReloadList");
 
             var latest = _context.Histories.Find(_ => true).SortByDescending(h => h.CreatedAt).FirstOrDefault();
             Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(latest, Formatting.Indented));
