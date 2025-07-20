@@ -1,4 +1,13 @@
-﻿// Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿if (typeof connection === "undefined") {
+    var connection = new signalR.HubConnectionBuilder()
+        .withUrl("/signalrhub")
+        .build();
 
-// Write your JavaScript code.
+    connection.on("ReloadList", () => {
+        location.reload();
+    });
+
+    connection.start()
+        .then(() => console.log("✅ SignalR connected"))
+        .catch(err => console.error("❌ SignalR connect error:", err));
+}
