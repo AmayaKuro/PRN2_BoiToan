@@ -14,8 +14,8 @@ public class TestHistoryService
         _historyRepository = historyRepository;
     }
 
-    public void SaveTestResult(string userId, string testId, string result, TestStatus status, List<Answer> answers)
+    public History SaveTestResult(string userId, string testId, string result, TestStatus status, List<Answer> answers)
     {
-        _historyRepository.SaveTestResult(userId, testId, result, status, answers);
+        return _historyRepository.SaveTestResult(userId, testId, result, status, answers);  
     }
 }

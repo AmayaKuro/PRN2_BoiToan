@@ -14,33 +14,39 @@
         color: #2c3e50;
         text-shadow: 1px 2px 8px #e0e0e0;
     }
+
     .stat-card {
         border: none;
         border-radius: 1rem;
         box-shadow: 0 4px 24px rgba(44,62,80,0.08);
         transition: transform 0.2s;
     }
-    .stat-card:hover {
-        transform: translateY(-4px) scale(1.03);
-        box-shadow: 0 8px 32px rgba(44,62,80,0.15);
-    }
-    .stat-card .card-header {
-        font-size: 1.1rem;
-        font-weight: 600;
-        letter-spacing: 0.5px;
-        background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
-        color: #fff;
-        border-top-left-radius: 1rem;
-        border-top-right-radius: 1rem;
-    }
-    .stat-card .card-title {
-        font-size: 2.2rem;
-        font-weight: 700;
-        color: #2c3e50;
-    }
+
+        .stat-card:hover {
+            transform: translateY(-4px) scale(1.03);
+            box-shadow: 0 8px 32px rgba(44,62,80,0.15);
+        }
+
+        .stat-card .card-header {
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
+            color: #fff;
+            border-top-left-radius: 1rem;
+            border-top-right-radius: 1rem;
+        }
+
+        .stat-card .card-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+
     .history-section {
         margin-top: 2.5rem;
     }
+
     .history-card {
         border: none;
         border-radius: 1rem;
@@ -48,22 +54,27 @@
         transition: box-shadow 0.2s, transform 0.2s;
         background: linear-gradient(135deg, #f8fafc 60%, #e3e9f7 100%);
     }
-    .history-card:hover {
-        box-shadow: 0 8px 32px rgba(44,62,80,0.18);
-        transform: translateY(-2px) scale(1.01);
-    }
-    .history-card .card-title {
-        font-size: 1.2rem;
-        font-weight: 600;
-        color: #2575fc;
-    }
-    .history-card .card-subtitle {
-        font-size: 1rem;
-        color: #6c757d;
-    }
-    .history-card .card-text strong {
-        color: #2c3e50;
-    }
+
+        .history-card:hover {
+            box-shadow: 0 8px 32px rgba(44,62,80,0.18);
+            transform: translateY(-2px) scale(1.01);
+        }
+
+        .history-card .card-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #2575fc;
+        }
+
+        .history-card .card-subtitle {
+            font-size: 1rem;
+            color: #6c757d;
+        }
+
+        .history-card .card-text strong {
+            color: #2c3e50;
+        }
+
     #loading {
         text-align: center;
         font-size: 1.2rem;
@@ -130,20 +141,67 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        const connection = new signalR.HubConnectionBuilder()
-            .withUrl("/testMonitorHub")
+        var connection = new signalR.HubConnectionBuilder()
+            .withUrl("/signalrhub")
             .build();
+        connection.on("ReloadList", (history) => {
+            // +1 TotalHistories
+            const totalHistoriesElem = document.querySelector('.stat-card.bg-info .card-title');
+            if (totalHistoriesElem && !isNaN(parseInt(totalHistoriesElem.textContent))) {
+                totalHistoriesElem.textContent = parseInt(totalHistoriesElem.textContent) + 1;
+            }
 
-        connection.on("ReceiveQuestionSelection", function (userId, questionId) {
-            document.querySelectorAll("#question-list li").forEach(li => li.style.background = "");
-            const selected = document.getElementById("question-" + questionId);
-            if (selected) {
-                selected.style.background = "#ffeeba";
-                document.getElementById("current-selection").innerText = `User ${userId} selected question ${questionId}`;
+            // Append new history card to the head of the list
+            if (history) {
+                const container = document.getElementById('history-cards');
+                const card = document.createElement('div');
+                card.className = "col-md-4 mb-4";
+                card.innerHTML = `
+                    <div class="card history-card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="bi bi-journal-text"></i> ${history.testName}</h5>
+                            <h6 class="card-subtitle mb-2"><i class="bi bi-person"></i> ${history.userName}</h6>
+                            <p class="card-text"><strong>Kết quả:</strong> ${history.result}</p>
+                            <p class="card-text">
+                                <strong>Đáp án:</strong>
+                                ${
+                                    history.answerCounts
+                                        ? Object.entries(history.answerCounts).map(([k, v]) => `<span class="badge bg-secondary me-1">${k}: ${v}</span>`).join(' ')
+                                        : ''
+                                }
+                            </p>
+                        </div>
+                    </div>
+                `;
+
+                if (container.firstChild) {
+                    container.insertBefore(card, container.firstChild);
+                } else {
+                    container.appendChild(card);
+                }
+
+                // Add 1 to the "Bài Test" (test taken) chart
+                const historyChartElem = document.getElementById('historyChart');
+                if (historyChartElem && historyChartElem.chart) {
+                    const chart = historyChartElem.chart;
+                    if (chart.data.datasets && chart.data.datasets.length > 0) {
+                        // Add 1 to the last data point
+                        const lastIndex = chart.data.datasets[0].data.length - 1;
+                        if (lastIndex >= 0) {
+                            chart.data.datasets[0].data[lastIndex] += 1;
+                            chart.update();
+                        }
+                    }
+                }
             }
         });
+        connection.on("ReloadList", (history) => {
+            location.reload(); 
+        });
 
-        connection.start().catch(err => console.error(err.toString()));
+        connection.start()
+            .then(() => console.log("✅ SignalR connected"))
+            .catch(err => console.error("❌ SignalR connect error:", err));
 
         let skip = 0;
         const take = 5;
@@ -215,7 +273,7 @@
                 options: {
                     responsive: true,
                     plugins: { legend: { position: 'top' } },
-                    scales: { y: { beginAtZero: true } }
+                    scales: { y: { beginAtZero: true, ticks: { stepSize: 2 }} }
                 }
             });
 
@@ -236,7 +294,7 @@
                 options: {
                     responsive: true,
                     plugins: { legend: { position: 'top' } },
-                    scales: { y: { beginAtZero: true } }
+                    scales: { y: { beginAtZero: true, ticks: { stepSize: 3 } } }
                 }
             });
         }

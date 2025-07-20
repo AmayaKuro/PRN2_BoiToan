@@ -10,7 +10,7 @@ public class HistoryRepository
         _context = context;
     }
 
-    public void SaveTestResult(string userId, string testId, string result, TestStatus status, List<Answer> answers)
+    public History SaveTestResult(string userId, string testId, string result, TestStatus status, List<Answer> answers)
     {
         var history = new History
         {
@@ -24,5 +24,7 @@ public class HistoryRepository
         };
 
         _context.Histories.InsertOne(history);
+
+        return history;
     }
 }

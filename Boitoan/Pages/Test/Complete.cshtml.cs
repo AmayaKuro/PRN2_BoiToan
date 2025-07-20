@@ -77,14 +77,14 @@ namespace SPTS_Writer.Pages.Test
 
             var answerList = answers.Select(a => new Answer { QuestionId = a.Key, Value = a.Value }).ToList();
 
-            _testHistoryService.SaveTestResult(
+            var history = _testHistoryService.SaveTestResult(
                 userId,    // string
                 testId,    // string
                 MbtiResult,
                 TestStatus.Completed,
                 answerList
             );
-            await _hubContext.Clients.All.SendAsync("ReloadList");
+            await _hubContext.Clients.All.SendAsync("ReloadList", history);
 
             var latest = _context.Histories.Find(_ => true).SortByDescending(h => h.CreatedAt).FirstOrDefault();
             Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(latest, Formatting.Indented));
