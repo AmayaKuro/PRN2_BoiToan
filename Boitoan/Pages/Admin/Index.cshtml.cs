@@ -11,6 +11,7 @@ using static System.Net.Mime.MediaTypeNames;
 //[Authorize(Policy = Policy)]
 namespace Boitoan.Pages.Admin;
 
+[Authorize(Roles = "Admin")]
 public class IndexModel : PageModel
 {
     private readonly UserService _userService;

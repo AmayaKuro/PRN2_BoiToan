@@ -1,8 +1,10 @@
 using Boitoan.DAL.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using SPTS_Writer.Services;
 
+[Authorize(Roles = "Admin")]
 public class EditTestModel : PageModel
 {
     private readonly TestService _testService;
@@ -51,6 +53,7 @@ public class EditTestModel : PageModel
         {
             if (removeQuestion.Value >= 0 && removeQuestion.Value < Test.Questions.Count)
                 Test.Questions.RemoveAt(removeQuestion.Value);
+
             return Page();
         }
 

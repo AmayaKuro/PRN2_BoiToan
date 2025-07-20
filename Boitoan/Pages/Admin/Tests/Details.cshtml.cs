@@ -1,8 +1,10 @@
 using Boitoan.DAL.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using SPTS_Writer.Services;
 
+[Authorize(Roles = "Admin")]
 public class TestDetailsModel : PageModel
 {
     private readonly TestService _testService;

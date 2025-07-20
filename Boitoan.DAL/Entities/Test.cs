@@ -6,7 +6,7 @@ public class Test : Base
     public string Author { get; set; }
     public DateTime TestDate { get; set; }
     public int NumberOfQuestions { get; set; }
-    public List<Question> Questions { get; set; } // why putting this private at fist?
+    public List<Question> Questions { get; set; } = new List<Question>();// why putting this private at fist?
 }
 
 public enum TestMethod
