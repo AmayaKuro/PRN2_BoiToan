@@ -1,7 +1,7 @@
-@page "{id}"
+﻿@page "{id}"
 @model TestDetailsModel
 @{
-    ViewData["Title"] = "Test Details";
+    ViewData["Title"] = "Chi tiết bài kiểm tra";
     Layout = "_AdminLayout";
 }
 
@@ -72,22 +72,22 @@
 </style>
 
 <div class="crud-card">
-    <h2 class="crud-title">Test Details</h2>
+    <h2 class="crud-title">Chi tiết bài kiểm tra</h2>
     <div>
-        <strong>Method:</strong> @Model.Test.Method <br />
-        <strong>Author:</strong> @Model.Test.Author <br />
-        <strong>Date:</strong> @Model.Test.TestDate.ToShortDateString() <br />
-        <strong>Questions:</strong> @Model.Test.NumberOfQuestions
+        <strong>Phương pháp:</strong> @Model.Test.Method <br />
+        <strong>Tác giả:</strong> @Model.Test.Author <br />
+        <strong>Ngày:</strong> @Model.Test.TestDate.ToShortDateString() <br />
+        <strong>Số câu hỏi:</strong> @Model.Test.NumberOfQuestions
     </div>
     <hr />
-    <h4 style="font-weight:600;color:#2575fc;">Questions</h4>
+    <h4 style="font-weight:600;color:#2575fc;">Câu hỏi</h4>
     <table class="table">
         <thead>
             <tr>
-                <th>Detail</th>
-                <th>Type</th>
-                <th>Options</th>
-                <th>Actions</th>
+                <th>Chi tiết </th>
+                <th>Loại</th>
+                <th>Lựa chọn</th>
+                <th>Hành động</th>
             </tr>
         </thead>
         <tbody>
@@ -114,7 +114,7 @@
             }
         </tbody>
     </table>
-    <a asp-page="Index" class="btn back-btn mt-2"><i class="bi bi-arrow-left"></i> Back to Tests</a>
+    <a asp-page="Index" class="btn back-btn mt-2"><i class="bi bi-arrow-left"></i> Quay lại</a>
 </div>
 
 @section Scripts {

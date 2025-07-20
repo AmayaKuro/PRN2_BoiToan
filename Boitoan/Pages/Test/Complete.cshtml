@@ -1,17 +1,115 @@
 ﻿@page
 @model SPTS_Writer.Pages.Test.CompleteModel
 @{
-    ViewData["Title"] = "Test Result";
+    ViewData["Title"] = "Kết quả MBTI";
+    Layout = null;
 }
 
-<div class="container mt-5">
-    <h2 class="text-primary">🎉 Kết quả MBTI của bạn là:</h2>
-    <h1 class="display-3 text-success">@Model.MbtiResult</h1>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kết quả MBTI - Delogis</title>
 
-    <div class="mt-4">
-        <h4 class="text-secondary">💡 Mô tả tính cách:</h4>
-        <p class="lead">@Model.MbtiDescription</p>
+    <!-- Google Fonts & CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="~/assets/vendors/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/assets/vendors/fontawesome/css/all.min.css" />
+    <link rel="stylesheet" href="~/assets/css/delogis.css" />
+    <link rel="stylesheet" href="~/assets/css/delogis-color-1.css" />
+
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            font-family: 'Lexend', sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #e0f7fa, #e1bee7);
+            display: flex;
+            flex-direction: column;
+        }
+        .result-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        header {
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        header img {
+            height: 50px;
+        }
+        .btn-login {
+            background-color: #ffc107;
+            border: none;
+            color: #000;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease-in-out;
+        }
+        .btn-login:hover {
+            background-color: #ff9800;
+            color: #fff;
+        }
+        .result-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .result-content h2 {
+            color: #1976d2;
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+        .result-content h1 {
+            font-size: 5rem;
+            color: #388e3c;
+            font-weight: 800;
+        }
+        .result-content p {
+            font-size: 1.25rem;
+            color: #333;
+            margin-top: 20px;
+            max-width: 600px;
+        }
+        .btn-home {
+            margin-top: 30px;
+            background-color: transparent;
+            color: #000;
+            border: 2px solid #000;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease-in-out;
+        }
+        .btn-home:hover {
+            background-color: #000;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="result-wrapper">
+        <header>
+            <a href="/"><img src="~/assets/images/resources/logo-3.png" alt="Delogis"></a>
+            <a href="/Account/LoginRegister" class="btn-login">Đăng nhập</a>
+        </header>
+        <div class="result-content">
+            <h2>🎉 Kết quả MBTI của bạn là:</h2>
+            <h1>@Model.MbtiResult</h1>
+            <p>@Model.MbtiDescription</p>
+            <a href="/" class="btn-home">Quay về trang chủ</a>
+        </div>
     </div>
+</body>
+</html>
 
-    <a href="/" class="btn btn-outline-primary mt-3">Quay về trang chủ</a>
-</div>
