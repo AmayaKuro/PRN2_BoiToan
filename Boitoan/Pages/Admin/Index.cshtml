@@ -1,4 +1,4 @@
-@page
+﻿@page
 @model Boitoan.Pages.Admin.IndexModel
 @{
     ViewData["Title"] = "Admin Dashboard";
@@ -78,7 +78,7 @@
 <div class="row mb-4">
     <div class="col-md-4">
         <div class="card stat-card bg-primary bg-gradient mb-3">
-            <div class="card-header">Total Users</div>
+            <div class="card-header">Tổng số người dùng</div>
             <div class="card-body text-center">
                 <h3 class="card-title">@Model.TotalUsers</h3>
             </div>
@@ -86,7 +86,7 @@
     </div>
     <div class="col-md-4">
         <div class="card stat-card bg-success bg-gradient mb-3">
-            <div class="card-header">Total Tests</div>
+            <div class="card-header">Tổng bài kiểm tra</div>
             <div class="card-body text-center">
                 <h3 class="card-title">@Model.TotalTests</h3>
             </div>
@@ -94,7 +94,7 @@
     </div>
     <div class="col-md-4">
         <div class="card stat-card bg-info bg-gradient mb-3">
-            <div class="card-header">Tests Taken</div>
+            <div class="card-header">Bài kiểm tra đã làm</div>
             <div class="card-body text-center">
                 <h3 class="card-title">@Model.TotalHistories</h3>
             </div>
@@ -104,10 +104,10 @@
 
 <section class="history-section">
     <h2 class="mb-4" style="font-weight:600;color:#2575fc;">
-        <i class="bi bi-clock-history"></i> Test Taken History
+        <i class="bi bi-clock-history"></i> Lịch sử bài kiểm tra
     </h2>
     <div class="row" id="history-cards"></div>
-    <div id="loading" style="display:none;">Loading...</div>
+    <div id="loading" style="display:none;">Đang tải...</div>
 </section>
 
 @section Scripts {
@@ -151,9 +151,9 @@
                         <div class="card-body">
                             <h5 class="card-title"><i class="bi bi-journal-text"></i> ${item.testName}</h5>
                             <h6 class="card-subtitle mb-2"><i class="bi bi-person"></i> ${item.userName}</h6>
-                            <p class="card-text"><strong>Result:</strong> ${item.result}</p>
+                            <p class="card-text"><strong>Kết quả:</strong> ${item.result}</p>
                             <p class="card-text">
-                                <strong>Answers:</strong>
+                                <strong>Đáp án:</strong>
                                 ${
                                     item.answerCounts
                                         ? Object.entries(item.answerCounts).map(([k, v]) => `<span class="badge bg-secondary me-1">${k}: ${v}</span>`).join(' ')

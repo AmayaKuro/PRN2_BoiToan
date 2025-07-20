@@ -1,10 +1,10 @@
-@page "{id}"
+﻿@page "{id}"
 
 @using Boitoan.DAL.Entities;
 
 @model EditTestModel
 @{
-    ViewData["Title"] = "Edit Test";
+    ViewData["Title"] = "Sửa bài kiểm tra";
     Layout = "_AdminLayout";
 }
 
@@ -81,34 +81,34 @@
     <div asp-validation-summary="All" class="alert alert-danger d-none" id="validationSummary"></div>
     <input type="hidden" asp-for="Test.Id" />
     <div class="mb-3">
-        <label asp-for="Test.Method" class="form-label"></label>
+        <label asp-for="Test.Method" class="form-label">Phương pháp</label>
         <select asp-for="Test.Method" class="form-select" asp-items="Html.GetEnumSelectList<TestMethod>()"></select>
     </div>
     <div class="mb-3">
-        <label asp-for="Test.Author" class="form-label"></label>
+        <label asp-for="Test.Author" class="form-label">Tác giả</label>
         <input asp-for="Test.Author" class="form-control" />
     </div>
 
     <hr />
     
-    <div class="form-section-title"><i class="bi bi-question-circle"></i> Questions</div>
+    <div class="form-section-title"><i class="bi bi-question-circle"></i> Câu hỏi</div>
     @for (int i = 0; i < Model.Test.Questions.Count; i++)
     {
         <div class="question-card" id="question-@i">
             <div class="question-card-header">
-                Question @(i + 1)
+                Câu hỏi @(i + 1)
                 <button type="submit" name="removeQuestion" value="@i" class="btn remove-btn btn-sm float-end" title="Remove Question">
                     <i class="bi bi-trash"></i>
                 </button>
             </div>
             <div class="question-card-body">
                 <div class="row mb-3">
-                    <label asp-for="Test.Questions[@i].Detail" class="form-label">Detail</label>
+                    <label asp-for="Test.Questions[@i].Detail" class="form-label">Câu hỏi</label>
                     <input asp-for="Test.Questions[@i].Detail" class="form-control" />
                     <input type="hidden" asp-for="Test.Questions[@i].Id" />
                 </div>
                 <div>
-                    <label class="form-label">Options</label>
+                    <label class="form-label">Lựa chọn</label>
                     <table class="table table-sm option-table mb-0">
                         <tbody>
                             @for (int j = 0; j < Model.Test.Questions[i].Options.Count; j++)
@@ -131,18 +131,18 @@
                         </tbody>
                     </table>
                     <button type="submit" name="addOption" value="@i" class="btn add-btn btn-sm mt-2">
-                        <i class="bi bi-plus-circle"></i> Add Option
+                        <i class="bi bi-plus-circle"></i> Thêm lựa chọn 
                     </button>
                 </div>
             </div>
         </div>
     }
     <button type="submit" name="addQuestion" value="true" class="btn add-btn btn-sm mb-4">
-        <i class="bi bi-plus-circle"></i> Add Question
+        <i class="bi bi-plus-circle"></i> Thêm câu hỏi
     </button>
     <br />
-    <button type="submit" class="btn btn-primary btn-lg px-4">Save</button>
-    <a asp-page="Index" class="btn btn-secondary btn-lg px-4 ms-2">Cancel</a>
+    <button type="submit" class="btn btn-primary btn-lg px-4">Lưu</button>
+    <a asp-page="Index" class="btn btn-secondary btn-lg px-4 ms-2">Hủy bỏ</a>
 </form>
 
 @section Scripts {
