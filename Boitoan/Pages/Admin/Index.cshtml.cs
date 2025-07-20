@@ -11,6 +11,7 @@ using static System.Net.Mime.MediaTypeNames;
 //[Authorize(Policy = Policy)]
 namespace Boitoan.Pages.Admin;
 
+[Authorize(Roles = "Admin")]
 public class IndexModel : PageModel
 {
     private readonly UserService _userService;
@@ -63,5 +64,24 @@ public class IndexModel : PageModel
         }
 
         return new JsonResult(result);
+    }
+
+    public async Task<JsonResult> OnGetUserHistoryChartAsync()
+    {
+        var allUsers = (await _userService.GetAllUsersAsync()).ToList();
+        var allHistories = (await _historyService.GetHistoriesPagedAsync(0, int.MaxValue)).ToList();
+
+        // Group by month (last 6 months)
+        var months = Enumerable.Range(0, 6)
+            .Select(i => DateTime.UtcNow.AddMonths(-i))
+            .Select(d => new DateTime(d.Year, d.Month, 1))
+            .OrderBy(d => d)
+            .ToList();
+
+        var userCounts = months.Select(m => allUsers.Count(u => u.CreatedAt.Year == m.Year && u.CreatedAt.Month == m.Month)).ToList();
+        var historyCounts = months.Select(m => allHistories.Count(h => h.CreatedAt.Year == m.Year && h.CreatedAt.Month == m.Month)).ToList();
+        var labels = months.Select(m => m.ToString("yyyy-MM")).ToList();
+
+        return new JsonResult(new { labels, userCounts, historyCounts });
     }
 }
