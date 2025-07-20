@@ -144,6 +144,7 @@
         var connection = new signalR.HubConnectionBuilder()
             .withUrl("/signalrhub")
             .build();
+
         connection.on("ReloadList", (history) => {
             // +1 TotalHistories
             const totalHistoriesElem = document.querySelector('.stat-card.bg-info .card-title');
@@ -194,9 +195,6 @@
                     }
                 }
             }
-        });
-        connection.on("ReloadList", (history) => {
-            location.reload(); 
         });
 
         connection.start()
