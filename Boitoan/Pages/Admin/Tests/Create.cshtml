@@ -55,10 +55,6 @@
             <label asp-for="Test.Method" class="form-label">Phương pháp</label>
             <select asp-for="Test.Method" class="form-select" asp-items="Html.GetEnumSelectList<Boitoan.DAL.Entities.TestMethod>()"></select>
         </div>
-        <div class="mb-3">
-            <label asp-for="Test.Author" class="form-label">Tác giả </label>
-            <input asp-for="Test.Author" class="form-control" />
-        </div>
         <button type="submit" class="btn add-btn px-4 me-2"><i class="bi bi-plus-circle"></i>Tạo mới</button>
         <a asp-page="Index" class="btn cancel-btn px-4">Hủy bỏ</a>
     </form>
