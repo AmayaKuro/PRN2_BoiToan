@@ -26,5 +26,13 @@ namespace SPTS_Writer.Services
                 .Skip(skip)
                 .Take(take);
         }
+        public async Task<IEnumerable<History>> GetHistoriesByUserIdAsync(string userId)
+        {
+            var all = await _testHistoryRepository.GetAllAsync();
+            return all
+                .Where(h => h.UserId == userId)
+                .OrderByDescending(h => h.CreatedAt);
+        }
+
     }
 }

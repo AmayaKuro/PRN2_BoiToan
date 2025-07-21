@@ -6,5 +6,7 @@ namespace SPTS_Writer.Services.Abstraction
     {
         Task<long> GetTotalTestHistory();
         Task<IEnumerable<History>> GetHistoriesPagedAsync(int skip, int take);
+        Task<IEnumerable<History>> GetHistoriesByUserIdAsync(string userId);
+
     }
 }
