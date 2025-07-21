@@ -40,7 +40,19 @@
                         </li>
                     </ul>
                     <div class="d-flex">
-                        <a href="/Account/Logout" class="btn btn-outline-warning rounded-pill">Đăng xuất</a>
+                        <div class="d-flex">
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <span style="color: #fff; font-weight: 500;">
+                                    Welcome, @User.Identity.Name
+                                </span>
+                                <a href="/Account/LoginRegister?handler=Logout"
+                                   class="btn btn-danger btn-sm"
+                                   style="margin-left: 10px;">
+                                    Đăng xuất
+                                </a>
+                            }
+                        </div>
                     </div>
                 </div>
             </div>

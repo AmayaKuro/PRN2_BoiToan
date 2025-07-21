@@ -58,7 +58,10 @@ namespace Boitoan.Pages.Account
                     CookieAuthenticationDefaults.AuthenticationScheme,
                     new ClaimsPrincipal(identity));
 
-                return RedirectToPage("/Index");
+                if (user.Role == "Admin")
+                    return Redirect("/admin");
+                else
+                    return RedirectToPage("/Index");
             }
             catch (Exception ex)
             {
@@ -116,7 +119,10 @@ namespace Boitoan.Pages.Account
             var account = await _authenService.GetOrCreateGoogleAccountAsync(email, name);
 
             await SignInAsync(account);
-            return RedirectToPage("/Index");
+            if (account.Role == "Admin")
+                return Redirect("/admin");
+            else
+                return RedirectToPage("/Index");
         }
 
         public async Task<IActionResult> OnGetLogoutAsync()

@@ -2,14 +2,11 @@ using Boitoan;
 using Boitoan.BLL;
 using Boitoan.DAL.Entities;
 using Boitoan.Hubs;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.SignalR;
-using MongoDB.Driver;
 using Newtonsoft.Json;
 using System.Security.Claims;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace SPTS_Writer.Pages.Test
 {
@@ -26,10 +23,12 @@ namespace SPTS_Writer.Pages.Test
             _userService = userService;
             _context = context;
             _hubContext = hubContext;
-
         }
-        public string MbtiResult { get; set; } = string.Empty;
-        public string MbtiDescription { get; set; } = string.Empty;
+
+        public string ResultTitle { get; set; } = string.Empty;
+        public string ResultType { get; set; } = string.Empty; // "MBTI" or "DISC"
+        public string ResultCode { get; set; } = string.Empty;
+        public string ResultDescription { get; set; } = string.Empty;
 
         public async Task<IActionResult> OnGetAsync()
         {
@@ -40,59 +39,70 @@ namespace SPTS_Writer.Pages.Test
             if (answers == null || answers.Count == 0)
                 return RedirectToPage("/Test/Index");
 
-            // Count MBTI letters
-            var mbtiCounts = new Dictionary<string, int>
-            {
-                ["E"] = 0,
-                ["I"] = 0,
-                ["S"] = 0,
-                ["N"] = 0,
-                ["T"] = 0,
-                ["F"] = 0,
-                ["J"] = 0,
-                ["P"] = 0
-            };
+            var answerCounts = answers.Values
+                .GroupBy(v => v)
+                .ToDictionary(g => g.Key, g => g.Count());
 
-            foreach (var val in answers.Values)
+            // MBTI logic
+            var mbtiLetters = new[] { "E", "I", "S", "N", "T", "F", "J", "P" };
+            bool isMbti = answerCounts.Keys.Any(k => mbtiLetters.Contains(k));
+
+            // DISC logic
+            var discTypes = new[] { "Dominance", "Influence", "Steadiness", "Conscientiousness" };
+            bool isDisc = answerCounts.Keys.Any(k => discTypes.Contains(k));
+
+            if (isMbti)
             {
-                if (mbtiCounts.ContainsKey(val))
-                    mbtiCounts[val]++;
+                var mbtiCounts = mbtiLetters.ToDictionary(letter => letter, letter => answerCounts.GetValueOrDefault(letter, 0));
+                ResultCode = string.Concat(
+                    mbtiCounts["E"] >= mbtiCounts["I"] ? "E" : "I",
+                    mbtiCounts["S"] >= mbtiCounts["N"] ? "S" : "N",
+                    mbtiCounts["T"] >= mbtiCounts["F"] ? "T" : "F",
+                    mbtiCounts["J"] >= mbtiCounts["P"] ? "J" : "P"
+                );
+                ResultDescription = MbtiHelper.GetDescription(ResultCode);
+                ResultType = "MBTI";
+                ResultTitle = " K?t qu? MBTI c?a b?n là:";
+            }
+            else if (isDisc)
+            {
+                var discCounts = discTypes.ToDictionary(t => t, t => answerCounts.GetValueOrDefault(t, 0));
+                ResultCode = discCounts.OrderByDescending(x => x.Value).First().Key;
+                ResultDescription = DiscHelper.GetDescription(ResultCode);
+                ResultType = "DISC";
+                ResultTitle = " K?t qu? DISC c?a b?n là:";
+            }
+            else
+            {
+                ResultTitle = "Không th? xác ??nh k?t qu?.";
+                ResultDescription = "Vui lòng làm l?i bài ki?m tra.";
+                ResultCode = "N/A";
             }
 
-            MbtiResult =
-                (mbtiCounts["E"] >= mbtiCounts["I"] ? "E" : "I") +
-                (mbtiCounts["S"] >= mbtiCounts["N"] ? "S" : "N") +
-                (mbtiCounts["T"] >= mbtiCounts["F"] ? "T" : "F") +
-                (mbtiCounts["J"] >= mbtiCounts["P"] ? "J" : "P");
-
-            // Get userId from claims and parse to Guid
+            // Save to DB
             string userId = User.FindFirst(ClaimTypes.Sid)?.Value
-              ?? User.FindFirst(ClaimTypes.NameIdentifier)?.Value
-              ?? string.Empty;
+                ?? User.FindFirst(ClaimTypes.NameIdentifier)?.Value
+                ?? string.Empty;
 
-            var user = await _userService.GetUserByIdAsync(userId);
+            var testId = TempData.ContainsKey("currentTestId") ? TempData["currentTestId"]?.ToString() : string.Empty;
 
-            // Get testId from TempData as string
-            string testId = TempData.ContainsKey("currentTestId") ? TempData["currentTestId"]?.ToString() : string.Empty;
-
-            var answerList = answers.Select(a => new Answer { QuestionId = a.Key, Value = a.Value }).ToList();
+            var answerList = answers.Select(a => new Answer
+            {
+                QuestionId = a.Key,
+                Value = a.Value
+            }).ToList();
 
             var history = _testHistoryService.SaveTestResult(
-                userId,    // string
-                testId,    // string
-                MbtiResult,
+                userId,
+                testId,
+                ResultCode,
                 TestStatus.Completed,
                 answerList
             );
+
             await _hubContext.Clients.All.SendAsync("ReloadList", history);
 
-            var latest = _context.Histories.Find(_ => true).SortByDescending(h => h.CreatedAt).FirstOrDefault();
-            Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(latest, Formatting.Indented));
-
-            MbtiDescription = MbtiHelper.GetDescription(MbtiResult);
-
-            TempData.Clear(); // Optional: clear after finishing
-
+            TempData.Clear();
             return Page();
         }
     }

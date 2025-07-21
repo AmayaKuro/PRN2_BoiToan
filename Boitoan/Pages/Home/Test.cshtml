@@ -166,7 +166,10 @@
                 </div>
             </div>
         </section>
-
+        @if (User.Identity.IsAuthenticated)
+        {
+            <a href="/Test/MyHistory" class="nav-link">Lịch sử bài test</a>
+        }
     <a href="#" data-target="html" class="scroll-to-target scroll-to-top"><i class="icon-up-arrow"></i></a>
 
     <script src="~/assets/vendors/jquery/jquery-3.6.0.min.js"></script>
