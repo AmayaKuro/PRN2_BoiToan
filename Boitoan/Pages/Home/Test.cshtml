@@ -101,8 +101,37 @@
                                 <li class="scrollToLink">
                                     <a href="#blog">Blog</a>
                                 </li>
+                                <li class="scrollToLink">
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
+                                        <a href="/Test/MyHistory" class="nav-link">Lịch sử bài kiểm tra</a>
+                                    }
+                                </li>
                             </ul>
                         </div>
+                    </div>
+                </div>
+                <div class="main-header-four__right">
+                    <div class="main-header-four__social">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <span style="color: #fff; font-weight: 500;">
+                                Welcome, @User.Identity.Name
+                            </span>
+                            <a href="/Account/LoginRegister?handler=Logout"
+                               class="btn btn-danger btn-sm"
+                               style="margin-left: 10px;">
+                                Đăng xuất
+                            </a>
+                        }
+                        else
+                        {
+                            <a href="/Account/LoginRegister"
+                               class="btn btn-primary btn-login-custom"
+                               style="padding: 10px 20px; font-weight: 500 !important;">
+                                Đăng nhập
+                            </a>
+                        }
                     </div>
                 </div>
             </nav>

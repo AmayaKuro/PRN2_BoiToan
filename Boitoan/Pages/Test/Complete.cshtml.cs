@@ -1,4 +1,4 @@
-using Boitoan;
+﻿using Boitoan;
 using Boitoan.BLL;
 using Boitoan.DAL.Entities;
 using Boitoan.Hubs;
@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.SignalR;
 using Newtonsoft.Json;
+using SPTS_Writer.Services;
 using System.Security.Claims;
 
 namespace SPTS_Writer.Pages.Test
@@ -13,16 +14,18 @@ namespace SPTS_Writer.Pages.Test
     public class CompleteModel : PageModel
     {
         private readonly TestHistoryService _testHistoryService;
+        private readonly TestService _testService;
         private readonly UserService _userService;
         private readonly MongoDbContext _context;
         private readonly IHubContext<SignalRHub> _hubContext;
 
-        public CompleteModel(TestHistoryService testHistoryService, UserService userService, MongoDbContext context, IHubContext<SignalRHub> hubContext)
+        public CompleteModel(TestHistoryService testHistoryService, UserService userService, MongoDbContext context, IHubContext<SignalRHub> hubContext, TestService testService)
         {
             _testHistoryService = testHistoryService;
             _userService = userService;
             _context = context;
             _hubContext = hubContext;
+            _testService = testService;
         }
 
         public string ResultTitle { get; set; } = string.Empty;
@@ -62,7 +65,7 @@ namespace SPTS_Writer.Pages.Test
                 );
                 ResultDescription = MbtiHelper.GetDescription(ResultCode);
                 ResultType = "MBTI";
-                ResultTitle = " K?t qu? MBTI c?a b?n l�:";
+                ResultTitle = " Kết quả MBTI của bạn là:";
             }
             else if (isDisc)
             {
@@ -70,12 +73,12 @@ namespace SPTS_Writer.Pages.Test
                 ResultCode = discCounts.OrderByDescending(x => x.Value).First().Key;
                 ResultDescription = DiscHelper.GetDescription(ResultCode);
                 ResultType = "DISC";
-                ResultTitle = " K?t qu? DISC c?a b?n l�:";
+                ResultTitle = " Kết quả DISC của bạn là:";
             }
             else
             {
-                ResultTitle = "Kh�ng th? x�c ??nh k?t qu?.";
-                ResultDescription = "Vui l�ng l�m l?i b�i ki?m tra.";
+                ResultTitle = "Không thể xác định kết quả";
+                ResultDescription = "Vui lòng làm lại bài kiểm tra.";
                 ResultCode = "N/A";
             }
 
@@ -100,7 +103,24 @@ namespace SPTS_Writer.Pages.Test
                 answerList
             );
 
-            await _hubContext.Clients.All.SendAsync("ReloadList", history);
+            var user = await _userService.GetUserByIdAsync(history.UserId.ToString());
+            var test = await _testService.GetTestByIdAsync(history.TestId.ToString());
+
+            // Count each answer value
+            var answerCounting = history.Answer?
+                .GroupBy(a => a.Value)
+                .ToDictionary(g => g.Key, g => g.Count()) ?? new Dictionary<string, int>();
+
+            var HistoryDisplayDto = new HistoryDisplayDto
+            {
+                TestName = test?.Method.ToString() ?? "Unknown",
+                UserName = user?.Name ?? "Unknown",
+                Result = history.Result,
+                AnswerCounts = answerCounting,
+                CreatedAt = history.CreatedAt
+            };
+
+            await _hubContext.Clients.All.SendAsync("ReloadList", HistoryDisplayDto);
 
             TempData.Clear();
             return Page();
