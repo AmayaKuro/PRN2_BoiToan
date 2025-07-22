@@ -238,9 +238,10 @@ int questionsPerPage = 5;
                             {
                             var question = questions[i];
                             <div class="question-card">
-                                <h5 class="question-title">
-                                    Câu hỏi  @((currentPage - 1) * questionsPerPage + i + 1): @question.Detail
-                                </h5>
+                                    <h5 class="question-title">
+                                        Câu hỏi  @((currentPage - 1) * questionsPerPage + i + 1):
+                                        @(question.Detail.Trim() == "?" ? "Chọn 1 trong 2" : question.Detail)
+                                    </h5>
                                 <fieldset>
                                     @foreach (var option in question.Options)
                                     {

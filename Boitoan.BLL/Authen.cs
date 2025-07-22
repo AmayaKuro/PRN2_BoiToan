@@ -50,7 +50,7 @@ namespace SPTS_Writer.Services
                 Email = registerRequest.Email,
                 PhoneNumber = registerRequest.PhoneNumber,
                 Password = hashedPassword,
-                Role = "Admin"
+                Role = "User"
 			};
 
             await _userRepository.AddAsync(user);

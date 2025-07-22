@@ -108,11 +108,25 @@
                     </div>
                     <div class="main-header-four__right">
                         <div class="main-header-four__social">
-                            <a href="/Account/LoginRegister"
-                               class="btn btn-primary btn-login-custom"
-                               style="padding: 10px 20px; font-weight: 500 !important;">
-                                Đăng nhập
-                            </a>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <span style="color: #212529; font-weight: 500;">
+                                    Welcome, @User.Identity.Name
+                                </span>
+                                <a href="/Account/LoginRegister?handler=Logout"
+                                   class="btn btn-danger btn-sm"
+                                   style="margin-left: 10px;">
+                                    Đăng xuất
+                                </a>
+                            }
+                            else
+                            {
+                                <a href="/Account/LoginRegister"
+                                   class="btn btn-primary btn-login-custom"
+                                   style="padding: 10px 20px; font-weight: 500 !important;">
+                                    Đăng nhập
+                                </a>
+                            }
                         </div>
                     </div>
                 </nav>
@@ -154,9 +168,9 @@
                             <div class="row">
                                 <div class="col-md-12 text-center">
                                     <div class="main-slider-four__content">
-                                        <h2 class="main-slider-four__title">Khám Phá Sức Khỏe<br>Tâm Lý Của Bạn</h2>
+                                        <h2 class="main-slider-four__title">Khám Phá Tính Cách<br>Với MBTI & DISC</h2>
                                         <p class="main-slider-four__text">
-                                            Chỉ với vài phút, bạn có thể hiểu rõ hơn về trạng thái tâm lý của mình.<br> Hoàn toàn miễn phí và bảo mật tuyệt đối.
+                                             Hiểu rõ bản thân để phát triển sự nghiệp và cải thiện mối quan hệ.<br> Hoàn toàn miễn phí và bảo mật tuyệt đối.
                                         </p>
                                         <div class="main-slider-four__btn">
                                             <a asp-page="/Home/Test" class="thm-btn thm-btn--two">Bắt Đầu Bài Test</a>
@@ -186,9 +200,9 @@
                             <div class="row">
                                 <div class="col-md-12 text-center">
                                    <div class="main-slider-four__content">
-                                        <h2 class="main-slider-four__title">Đánh Giá Mức Độ<br>Stress Hiện Tại</h2>
+                                        <h2 class="main-slider-four__title">Khám Phá Tính Cách<br>Và Phong Cách Giao Tiếp</h2>
                                         <p class="main-slider-four__text">
-                                          Bài test khoa học giúp bạn nhận diện stress, lo âu và trầm cảm.<br> Bảo mật – Miễn phí – Nhanh chóng.</p>
+                                          Chúng tôi cung cấp 2 bài test MBTI và DISC phổ biến nhất thế giới để giúp bạn hiểu rõ hơn về bản thân và những người xung quanh.<br> Bảo mật – Miễn phí – Nhanh chóng.</p>
                                           <div class="main-slider-four__btn">
                                               <a  asp-page="/Home/Test" class="thm-btn thm-btn--two">Thực Hiện Ngay</a>
                                           </div>
@@ -210,12 +224,11 @@
                                 <div class="section-title section-title--home-four text-left">
                                     <span class="section-title__tagline"><span class="section-title__tagline__icon"><i class="delogis-icons-two-brain"></i></span>Về chúng tôi</span>
                                     <h2 class="section-title__title">
-                                        Khám Phá Sức Khỏe <br> Tinh Thần Của Bạn
+                                        Khám Phá Tính Cách <br>Và Phong Cách Giao Tiếp
                                     </h2>
                                 </div>
                                 <p class="about-five__content__text">
-                                    Chỉ với vài phút, bạn có thể đánh giá mức độ căng thẳng, lo âu và sức khỏe tâm lý tổng quan của bản thân.
-                                    Bài test hoàn toàn miễn phí và bảo mật tuyệt đối, giúp bạn hiểu rõ hơn để chăm sóc tinh thần tốt hơn mỗi ngày.
+                                    Chúng tôi cung cấp 2 bài test MBTI và DISC phổ biến nhất thế giới để giúp bạn hiểu rõ hơn về bản thân và những người xung quanh. Hoàn toàn miễn phí và bảo mật.
 
 
                                 </p>
@@ -223,20 +236,20 @@
                                     <li>
                                         <div class="about-five__box__top">
                                             <div class="about-five__box__icon"><span class="delogis-icons-two-high-five"></span></div>
-                                            <h3 class="about-five__box__title">Relationship<br>Kiểm Tra Stress</h3>
+                                            <h3 class="about-five__box__title">MBTI<br>16 Tính Cách</h3>
                                         </div>
                                         <p class="about-five__box__text">
-                                            Đo lường mức độ căng thẳng hiện tại và nhận gợi ý cải thiện.
-                                            </p>
+                                            Khám phá nhóm tính cách, thế mạnh, điểm yếu và định hướng nghề nghiệp của bạn.
+                                        </p>
                                     </li>
                                     <li>
                                         <div class="about-five__box__top">
                                             <div class="about-five__box__icon"><span class="delogis-icons-two-stress-relief"></span></div>
-                                            <h3 class="about-five__box__title">Stress<br>Đánh Giá Lo Âu</h3>
+                                            <h3 class="about-five__box__title">DISC<br>Giao Tiếp & Hành Vi</h3>
                                         </div>
                                         <p class="about-five__box__text">
-                                            Khám phá các dấu hiệu lo âu và cách quản lý hiệu quả.
-                                            </p>
+                                            Hiểu phong cách giao tiếp để làm việc hiệu quả và xây dựng mối quan hệ tốt hơn.
+                                        </p>
                                     </li>
                                 </ul>
                                 <div class="about-five__progress">
@@ -276,86 +289,71 @@
             <!--About Four End-->
             <!--Services Four Start-->
             <section class="services-four" id="services">
-                <div class="container">
-                    <div class="section-title section-title--home-four text-center">
-                        <span class="section-title__tagline"><span class="section-title__tagline__icon"><i class="delogis-icons-two-brain"></i></span>Dịch vụ</span>
-                        <h2 class="section-title__title">
-                            Các Bài Test Tâm Lý Phổ Biến
-                            <br>
-                        </h2>
+    <div class="container">
+        <div class="section-title section-title--home-four text-center">
+            <span class="section-title__tagline">
+                <span class="section-title__tagline__icon">
+                    <i class="delogis-icons-two-brain"></i>
+                </span>Bài Test Tính Cách
+            </span>
+            <h2 class="section-title__title">
+                Khám Phá Bản Thân Với MBTI & DISC
+            </h2>
+        </div>
+        <div class="row gutter-y-30">
+            <!-- MBTI Test -->
+            <div class="col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="00ms">
+                <div class="services-four__single">
+                    <div class="services-four__single__content">
+                        <div class="services-four__single__shape"></div>
+                        <div class="services-four__single__icon">
+                            <span class="delogis-icons-two-self-confidence"></span>
+                        </div>
+                        <h3 class="services-four__single__title">
+                                        <a  <a asp-page="/Home/Test">Bài Test MBTI</a>
+                        </h3>
+                        <p class="services-four__single__text">
+                            Xác định nhóm tính cách của bạn (16 loại) để hiểu rõ ưu điểm, hạn chế và định hướng phát triển bản thân, từ đó có thể phát huy được hết khả năng của mình.
+                        </p>
                     </div>
-                    <div class="row gutter-y-30">
-                        <!--Services Start-->
-                        <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="00ms">
-                            <div class="services-four__single">
-                                <div class="services-four__single__content">
-                                    <div class="services-four__single__shape"></div>
-                                    <div class="services-four__single__icon">
-                                        <span class="delogis-icons-two-heart"></span>
-                                    </div>
-                                    <h3 class="services-four__single__title"><a href="">Quan Hệ &<br>Tình Cảm</a></h3>
-                                    <p class="services-four__single__text">
-                                        Hiểu rõ hơn về cách bạn xây dựng và duy trì mối quan hệ.
-                                    </p>
-                                </div>
-                                <div class="services-four__single__bottom">
-                                    <div class="services-four__single__img">
-                                        <img src="~/assets/images/services/services-4-1.jpg" alt="delogis">
-                                    </div>
-                                    <a href="" class="services-four__single__btn"><i class="delogis-icons-two-right-arrow"></i></a>
-                                </div>
-                            </div>
+                    <div class="services-four__single__bottom">
+                        <div class="services-four__single__img">
+                                        <img src="~/assets/images/services/services-4-1.jpg" alt="MBTI Test">
                         </div>
-                        <!--Services Start-->
-                        <!--Services Start-->
-                        <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="100ms">
-                            <div class="services-four__single">
-                                <div class="services-four__single__content">
-                                    <div class="services-four__single__shape"></div>
-                                    <div class="services-four__single__icon">
-                                        <span class="delogis-icons-two-self-confidence"></span>
-                                    </div>
-                                    <h3 class="services-four__single__title"><a href="">Quản Lý Căng Thẳng &<br>Lo âu</a></h3>
-                                    <p class="services-four__single__text">
-                                        Đánh giá mức độ stress hiện tại và cách giảm thiểu căng thẳng.
-
-                                    </p>
-                                </div>
-                                <div class="services-four__single__bottom">
-                                    <div class="services-four__single__img">
-                                        <img src="~/assets/images/services/services-4-2.jpg" alt="delogis">
-                                    </div>
-                                    <a href="" class="services-four__single__btn"><i class="delogis-icons-two-right-arrow"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <!--Services Start-->
-                        <!--Services Start-->
-                        <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="200ms">
-                            <div class="services-four__single">
-                                <div class="services-four__single__content">
-                                    <div class="services-four__single__shape"></div>
-                                    <div class="services-four__single__icon">
-                                        <span class="delogis-icons-two-family"></span>
-                                    </div>
-                                    <h3 class="services-four__single__title"><a href=""> Tâm Lý Trẻ Em &<br> Gia Đình</a></h3>
-                                    <p class="services-four__single__text">
-                                        Phân tích sự gắn kết và sức khỏe tinh thần của gia đình bạn.
-
-                                    </p>
-                                </div>
-                                <div class="services-four__single__bottom">
-                                    <div class="services-four__single__img">
-                                        <img src="~/assets/images/services/services-4-3.jpg" alt="delogis">
-                                    </div>
-                                    <a href="" class="services-four__single__btn"><i class="delogis-icons-two-right-arrow"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <!--Services Start-->
+                                    <a  <a asp-page="/Home/Test" class="services-four__single__btn">
+                            <i class="delogis-icons-two-right-arrow"></i>
+                        </a>
                     </div>
                 </div>
-            </section>
+            </div>
+            <!-- DISC Test -->
+            <div class="col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="100ms">
+                <div class="services-four__single">
+                    <div class="services-four__single__content">
+                        <div class="services-four__single__shape"></div>
+                        <div class="services-four__single__icon">
+                            <span class="delogis-icons-two-heart"></span>
+                        </div>
+                        <h3 class="services-four__single__title">
+                                        <a asp-page="/Home/Test">Bài Test DISC</a>
+                        </h3>
+                        <p class="services-four__single__text">
+                            Khám phá phong cách giao tiếp và hành vi (Dominance, Influence, Steadiness, Compliance) để cải thiện kỹ năng làm việc nhóm.
+                        </p>
+                    </div>
+                    <div class="services-four__single__bottom">
+                        <div class="services-four__single__img">
+                                        <img src="~/assets/images/services/services-4-3.jpg" alt="DISC Test">
+                        </div>
+                                    <a asp-page="/Home/Test" class="services-four__single__btn">
+                            <i class="delogis-icons-two-right-arrow"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
             <!--Services Four End-->
             <!--Why Choose Four Start-->
             <section class="why-choose-four">
@@ -833,5 +831,4 @@
         </div>
         ...
     </section>
-    <!-- Các section khác copy y nguyên -->
 </div>
