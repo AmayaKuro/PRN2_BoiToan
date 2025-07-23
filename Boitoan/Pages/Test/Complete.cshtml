@@ -107,6 +107,30 @@
                 background-color: #000;
                 color: #fff;
             }
+
+        .result-description h2, .result-description h3 {
+            color: #673ab7;
+            margin-top: 1.5rem;
+        }
+
+        .result-description p {
+            margin: 0.75rem 0;
+            line-height: 1.6;
+        }
+
+        .result-description ul {
+            text-align: left;
+            padding-left: 1.5rem;
+        }
+
+        .result-description li {
+            margin: 0.4rem 0;
+        }
+
+        .result-description strong {
+            color: #00796b;
+        }
+
     </style>
 </head>
 <body>
@@ -117,7 +141,9 @@
         <div class="result-content">
             <h2>@Model.ResultTitle</h2>
             <h1>@Model.ResultCode</h1>
-            <p>@Model.ResultDescription</p>
+            <div class="result-description text-start" style="max-width: 900px;">
+                @Html.Raw(Model.ResultDescriptionHtml)
+            </div>
             <a href="/" class="btn-home">Quay về trang chủ</a>
         </div>
     </div>
