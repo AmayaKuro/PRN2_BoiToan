@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.SignalR;
 using Newtonsoft.Json;
 using SPTS_Writer.Services;
 using System.Security.Claims;
+using Markdig;
 
 namespace SPTS_Writer.Pages.Test
 {
@@ -18,14 +19,17 @@ namespace SPTS_Writer.Pages.Test
         private readonly UserService _userService;
         private readonly MongoDbContext _context;
         private readonly IHubContext<SignalRHub> _hubContext;
+        private readonly GeminiService _geminiService;
+        public string ResultDescriptionHtml { get; set; }
 
-        public CompleteModel(TestHistoryService testHistoryService, UserService userService, MongoDbContext context, IHubContext<SignalRHub> hubContext, TestService testService)
+        public CompleteModel(TestHistoryService testHistoryService, UserService userService, MongoDbContext context, IHubContext<SignalRHub> hubContext, TestService testService, GeminiService geminiService)
         {
             _testHistoryService = testHistoryService;
             _userService = userService;
             _context = context;
             _hubContext = hubContext;
             _testService = testService;
+            _geminiService = geminiService;
         }
 
         public string ResultTitle { get; set; } = string.Empty;
@@ -63,7 +67,6 @@ namespace SPTS_Writer.Pages.Test
                     mbtiCounts["T"] >= mbtiCounts["F"] ? "T" : "F",
                     mbtiCounts["J"] >= mbtiCounts["P"] ? "J" : "P"
                 );
-                ResultDescription = MbtiHelper.GetDescription(ResultCode);
                 ResultType = "MBTI";
                 ResultTitle = " Kết quả MBTI của bạn là:";
             }
@@ -71,7 +74,6 @@ namespace SPTS_Writer.Pages.Test
             {
                 var discCounts = discTypes.ToDictionary(t => t, t => answerCounts.GetValueOrDefault(t, 0));
                 ResultCode = discCounts.OrderByDescending(x => x.Value).First().Key;
-                ResultDescription = DiscHelper.GetDescription(ResultCode);
                 ResultType = "DISC";
                 ResultTitle = " Kết quả DISC của bạn là:";
             }
@@ -81,7 +83,13 @@ namespace SPTS_Writer.Pages.Test
                 ResultDescription = "Vui lòng làm lại bài kiểm tra.";
                 ResultCode = "N/A";
             }
+            if (ResultCode != "N/A")
+            {
+                var rawDescription = await _geminiService.GenerateDescriptionAsync(ResultType, ResultCode);
+                ResultDescription = rawDescription;
+                ResultDescriptionHtml = Markdown.ToHtml(rawDescription); 
 
+            }
             // Save to DB
             string userId = User.FindFirst(ClaimTypes.Sid)?.Value
                 ?? User.FindFirst(ClaimTypes.NameIdentifier)?.Value

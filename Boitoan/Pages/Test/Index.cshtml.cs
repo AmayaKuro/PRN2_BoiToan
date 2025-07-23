@@ -100,9 +100,6 @@ namespace SPTS_Writer.Pages.Test
             int totalPages = (int)Math.Ceiling(test.Questions.Count / (double)QuestionsPerPage);
             int nextPage = currentPage + 1;
             
-            //Log the answers for debugging
-            Console.WriteLine($"Answers for Test ID {id}: {JsonConvert.SerializeObject(answers)}");
-            
             
             return nextPage > totalPages
                 ? RedirectToPage("/Test/Complete")

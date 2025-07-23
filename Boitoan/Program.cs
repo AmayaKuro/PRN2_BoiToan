@@ -1,4 +1,5 @@
 ﻿using Boitoan;
+using Boitoan.BLL;
 using Boitoan.Hubs;
 using Microsoft.AspNetCore.Authentication.Google;
 using SPTS_Writer.Services;
@@ -10,6 +11,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddSignalR();
+builder.Services.AddHttpClient();
+builder.Services.AddSingleton<GeminiService>();
 
 builder.Services.AddDependencyInjection(builder.Configuration);
 
