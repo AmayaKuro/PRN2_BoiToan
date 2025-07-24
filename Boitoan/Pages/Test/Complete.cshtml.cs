@@ -2,13 +2,14 @@
 using Boitoan.BLL;
 using Boitoan.DAL.Entities;
 using Boitoan.Hubs;
+using Markdig;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.SignalR;
 using Newtonsoft.Json;
 using SPTS_Writer.Services;
+using SPTS_Writer.Services.Abstraction;
 using System.Security.Claims;
-using Markdig;
 
 namespace SPTS_Writer.Pages.Test
 {
@@ -87,7 +88,7 @@ namespace SPTS_Writer.Pages.Test
             {
                 var rawDescription = await _geminiService.GenerateDescriptionAsync(ResultType, ResultCode);
                 ResultDescription = rawDescription;
-                ResultDescriptionHtml = Markdown.ToHtml(rawDescription); 
+                ResultDescriptionHtml = Markdown.ToHtml(rawDescription);
 
             }
             // Save to DB
@@ -131,6 +132,15 @@ namespace SPTS_Writer.Pages.Test
             await _hubContext.Clients.All.SendAsync("ReloadList", HistoryDisplayDto);
 
             TempData.Clear();
+            return Page();
+        }
+        public async Task<IActionResult> OnGetFromHistoryAsync(string testType, string result)
+        {
+            ResultType = testType;
+            ResultCode = result;
+            ResultTitle = $"Kết quả {ResultType} của bạn là:";
+            ResultDescription = await _geminiService.GenerateDescriptionAsync(ResultType, ResultCode);
+            ResultDescriptionHtml = Markdown.ToHtml(ResultDescription);
             return Page();
         }
     }
