@@ -171,6 +171,8 @@
                         .ToDictionary(g => g.Key, g => g.Count()) ?? new Dictionary<string, int>();
 
                         <div class="col-md-4 mb-4">
+                            <a href="/Test/Complete?handler=FromHistory&testType=@item.TestName&result=@item.Result" style="text-decoration: none; color: inherit;">
+
                             <div class="card history-card h-100">
                                 <div class="card-body">
                                     <h5 class="card-title"><i class="bi bi-journal-text"></i> @item.TestName</h5>
@@ -185,6 +187,7 @@
                                     <p class="card-subtitle text-muted">📅 @item.CreatedAt.ToString("dd/MM/yyyy HH:mm")</p>
                                 </div>
                             </div>
+                            </a>
                         </div>
                     }
                 }
